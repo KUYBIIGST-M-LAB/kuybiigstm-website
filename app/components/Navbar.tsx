@@ -54,9 +54,11 @@ export default function Navbar() {
   }, [isOpen]);
 
   // Close menu when route changes
-  useEffect(() => {
+  const [prevPathname, setPrevPathname] = useState(pathname);
+  if (prevPathname !== pathname) {
+    setPrevPathname(pathname);
     setIsOpen(false);
-  }, [pathname]);
+  }
 
   return (
     <header

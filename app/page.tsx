@@ -3,6 +3,7 @@ import Link from 'next/link';
 import HeroParallax from './components/HeroParallax';
 import PublicationsSection from './components/PublicationsSection';
 import CloudHeroCard from './components/CloudHeroCard';
+import YouTubeFacade from './components/YouTubeFacade';
 
 const researchPillars = [
   {
@@ -242,29 +243,15 @@ export default function KuybimPage() {
           <p className="mt-3 sm:mt-4 text-sm sm:text-base leading-relaxed sm:leading-8 text-slate-700">{featuredResearch.summary}</p>
 
           <div className="mt-6 grid gap-5 lg:grid-cols-2">
-            <div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-950">
-              <iframe
-                className="aspect-video w-full"
-                src="https://www.youtube-nocookie.com/embed/t7jUZwhZdd0"
-                title="Featured research video 1"
-                loading="lazy"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerPolicy="strict-origin-when-cross-origin"
-                allowFullScreen
-              />
-            </div>
+            <YouTubeFacade
+              videoId="t7jUZwhZdd0"
+              title="Ambient-Temperature Serial Femtosecond X-ray Crystallography of Ribosome Complexes"
+            />
 
-            <div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-950">
-              <iframe
-                className="aspect-video w-full"
-                src="https://www.youtube-nocookie.com/embed/RG-PYmeq2XE"
-                title="Featured research video 2"
-                loading="lazy"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerPolicy="strict-origin-when-cross-origin"
-                allowFullScreen
-              />
-            </div>
+            <YouTubeFacade
+              videoId="RG-PYmeq2XE"
+              title="Structural Mechanisms & Dynamics of Translation"
+            />
           </div>
         </article>
       </section>

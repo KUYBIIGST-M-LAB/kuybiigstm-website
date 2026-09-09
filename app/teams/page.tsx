@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import TeamView, { TeamMember } from './TeamView';
+import TeamView from './TeamView';
 import { getTeamMembers, DEFAULT_SHEET_URL } from '@/lib/teamLoader';
 
 export const dynamic = 'force-dynamic';

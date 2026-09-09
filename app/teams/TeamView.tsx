@@ -35,11 +35,13 @@ function MemberAvatar({
   name: string;
   size?: 'md' | 'lg';
 }) {
+  const [prevImage, setPrevImage] = useState(image);
   const [hasError, setHasError] = useState(false);
 
-  useEffect(() => {
+  if (prevImage !== image) {
+    setPrevImage(image);
     setHasError(false);
-  }, [image]);
+  }
 
   if (image && !hasError) {
     return (
