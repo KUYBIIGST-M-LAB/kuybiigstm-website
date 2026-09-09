@@ -79,7 +79,7 @@ export default function Navbar() {
               aria-hidden="true"
               width={56}
               height={56}
-              quality={70}
+              quality={60}
               className="h-10 w-10 sm:h-12 sm:w-12 object-contain"
               priority
             />
