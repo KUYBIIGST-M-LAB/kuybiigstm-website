@@ -13,13 +13,13 @@ export default function YouTubeFacade({
   videoId,
   title,
   className = '',
-  thumbnailQuality = 'maxresdefault',
+  thumbnailQuality = 'hqdefault',
 }: YouTubeFacadeProps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [thumbError, setThumbError] = useState(false);
 
   const thumbnailUrl = thumbError
-    ? `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`
+    ? `https://i.ytimg.com/vi/${videoId}/mqdefault.jpg`
     : `https://i.ytimg.com/vi/${videoId}/${thumbnailQuality}.jpg`;
 
   if (isPlaying) {

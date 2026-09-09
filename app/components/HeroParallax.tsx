@@ -27,30 +27,21 @@ export default function HeroParallax({ image, children }: Props) {
     }
 
     let ticking = false;
-    let shiftRange = 40;
+    let shiftRange = 35;
     let heroHeight = 700;
 
     const setupDimensions = () => {
-      if (!sectionRef.current || !imgRef.current) return;
       const vw = window.innerWidth;
       const vh = window.innerHeight;
-      heroHeight = sectionRef.current.offsetHeight || vh;
+      heroHeight = vh * 0.85;
 
       // Subtle horizontal shift distance:
-      // Mobile (< 640px): 15-20px shift
-      // Tablet / Desktop: 35-50px shift
+      // Mobile (< 640px): 12-16px shift
+      // Tablet / Desktop: 30-40px shift
       const isMobile = vw < 640;
       shiftRange = isMobile
-        ? Math.round(Math.min(vw * 0.04, 20))
-        : Math.round(Math.min(vw * 0.035, 50));
-
-      // Container is only slightly wider than viewport by shiftRange + small buffer
-      // This avoids excessive zooming and keeps the panoramic campus and sea visible
-      const totalWidth = vw + shiftRange + 24;
-      imgRef.current.style.width = `${totalWidth}px`;
-      imgRef.current.style.left = `-${shiftRange}px`;
-      imgRef.current.style.height = '106%';
-      imgRef.current.style.top = '-1.5%';
+        ? Math.round(Math.min(vw * 0.035, 16))
+        : Math.round(Math.min(vw * 0.03, 40));
     };
 
     const updateParallax = () => {
@@ -68,11 +59,11 @@ export default function HeroParallax({ image, children }: Props) {
       // Smooth easing (easeOutQuad) for organic, gentle movement
       const easeProgress = progress * (2 - progress);
 
-      // Subtle horizontal shift
+      // Subtle horizontal shift (GPU accelerated transform only - no layout reflow)
       const translateX = easeProgress * shiftRange;
 
-      // Very subtle vertical depth movement (~2.5% of hero height, approx 18-22px)
-      const translateY = easeProgress * (heroHeight * 0.025);
+      // Very subtle vertical depth movement (~2% of hero height)
+      const translateY = easeProgress * (heroHeight * 0.02);
 
       imgRef.current.style.transform = `translate3d(${translateX.toFixed(1)}px, ${translateY.toFixed(1)}px, 0)`;
       ticking = false;
@@ -111,13 +102,7 @@ export default function HeroParallax({ image, children }: Props) {
       <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
         <div
           ref={imgRef}
-          className="absolute will-change-transform"
-          style={{
-            width: '105vw',
-            left: '-2.5vw',
-            height: '106%',
-            top: '-1.5%',
-          }}
+          className="absolute -inset-x-8 -inset-y-4 will-change-transform"
         >
           <Image
             src={image}
@@ -125,6 +110,7 @@ export default function HeroParallax({ image, children }: Props) {
             aria-hidden="true"
             fill
             priority
+            fetchPriority="high"
             sizes="100vw"
             className="object-cover object-[center_42%] sm:object-[center_46%] md:object-[center_48%]"
           />
