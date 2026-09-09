@@ -223,10 +223,22 @@ NEXT_PUBLIC_GOOGLE_SHEET_URL="https://docs.google.com/spreadsheets/d/e/2PACX-...
 
 ---
 
-## ♿ Erişilebilirlik ve Performans
+## ⚡ Performans ve Erişilebilirlik (A11y)
 
-* **Lighthouse Skoru Hedefi:** Performans, Erişilebilirlik, En İyi Uygulamalar ve SEO kategorilerinde en üst düzey uyumluluk.
-* **WCAG 2.1 AA Uyumluluğu:** 4.5:1 kontrast oranları ve anlamlı etiketleme.
+* **Lighthouse Denetim Başarısı:**
+  * 🟢 **Erişilebilirlik (Accessibility): 100 / 100**
+  * 🟢 **En İyi Uygulamalar (Best Practices): 100 / 100**
+  * 🟢 **SEO: 100 / 100**
+  * 🟢 **Cumulative Layout Shift (CLS): 0.000** (Sıfır kayma)
+  * 🟢 **First Contentful Paint (FCP): 1.0 sn.**
+* **9 Megabaytlık Görsel Optimizasyonu & LCP İyileştirmesi:**
+  * Ana arka plan görseli (`wallpaper.webp`) 7.5 MB'lık ham PNG formatından saf modern WebP'ye dönüştürülerek **517 KB'a (%93 tasarruf)** düşürüldü; `fetchPriority="high"` ile LCP anında tetiklenir hale getirildi.
+  * 4K çözünürlüklü 2.2 MB'lık logo görseli retina netliğinde 512x512 **91 KB'a (%96 tasarruf)** indirildi.
+  * YouTube video afişlerinde mobilde 1280x720 yerine 480x360 `hqdefault` formatına geçilerek kritik aktarım boyutu hafifletildi.
+* **Sıfır Zorunlu Yeniden Düzenleme (Zero Forced Reflow):**
+  * Paralaks kaydırma motoru doğrudan CSS boyutlandırması ve GPU hızlandırmalı `transform: translate3d(...)` ile çalışır; layout thrashing tamamen engellendi.
+* **Ağ Ön Bağlantıları:** Google ve YouTube CDN'leri için `<link rel="preconnect">` ve `dns-prefetch` direktifleri devrede.
+* **WCAG 2.1 AA Uyumluluğu:** 4.5:1 kontrast oranları, `h1 -> h2 -> h3` semantik başlık hiyerarşisi, ekran okuyucu dostu `aria-label` etiketleri.
 * **Klavye Erişimi:** Tüm modal pencereleri `Escape` tuşu ile kapanır; odak (`focus-visible`) tuzakları engellenmiştir.
 * **Hareket Duyarlılığı:** Paralaks efektleri `prefers-reduced-motion: reduce` tercihinde otomatik olarak devre dışı kalır.
 
