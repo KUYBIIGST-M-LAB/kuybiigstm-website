@@ -121,7 +121,8 @@ export default function HeroParallax({ image, children }: Props) {
         >
           <Image
             src={image}
-            alt="Koç University Campus with Black Sea View"
+            alt=""
+            aria-hidden="true"
             fill
             priority
             sizes="100vw"

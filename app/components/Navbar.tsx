@@ -75,7 +75,8 @@ export default function Navbar() {
           <div className="flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center overflow-hidden rounded-xl bg-white p-1 shadow-xs transition group-hover:scale-105">
             <Image
               src="/img/logo.webp"
-              alt="KUYBIIGST-M Logo"
+              alt=""
+              aria-hidden="true"
               width={56}
               height={56}
               className="h-10 w-10 sm:h-12 sm:w-12 object-contain"

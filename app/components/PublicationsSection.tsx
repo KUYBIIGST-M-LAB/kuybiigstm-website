@@ -198,10 +198,11 @@ export default function PublicationsSection() {
             </div>
             <input
               type="text"
+              aria-label={t.publications.searchPlaceholder}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder={t.publications.searchPlaceholder}
-              className="w-full rounded-full border border-slate-300 bg-white py-2.5 pl-10 pr-10 text-sm text-slate-800 placeholder-slate-400 shadow-xs transition focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
+              className="w-full rounded-full border border-slate-300 bg-white py-2.5 pl-10 pr-10 text-sm text-slate-800 placeholder-slate-500 shadow-xs transition focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
             />
             {searchQuery && (
               <button
@@ -221,7 +222,7 @@ export default function PublicationsSection() {
           <div className="flex flex-wrap items-center gap-3">
             {/* Year Dropdown */}
             <div className="flex items-center gap-1.5">
-              <label htmlFor="year-select" className="text-xs font-semibold text-slate-500">
+              <label htmlFor="year-select" className="text-xs font-bold text-slate-700">
                 {lang === 'tr' ? 'Yıl:' : 'Year:'}
               </label>
               <select
@@ -241,7 +242,7 @@ export default function PublicationsSection() {
 
             {/* Sort Dropdown */}
             <div className="flex items-center gap-1.5">
-              <label htmlFor="sort-select" className="text-xs font-semibold text-slate-500">
+              <label htmlFor="sort-select" className="text-xs font-bold text-slate-700">
                 {t.publications.sortBy}:
               </label>
               <select
@@ -258,7 +259,7 @@ export default function PublicationsSection() {
 
             {/* Items Per Page */}
             <div className="flex items-center gap-1.5">
-              <label htmlFor="page-size-select" className="text-xs font-semibold text-slate-500">
+              <label htmlFor="page-size-select" className="text-xs font-bold text-slate-700">
                 {t.publications.perPage}:
               </label>
               <select
@@ -283,7 +284,7 @@ export default function PublicationsSection() {
             className={`rounded-full px-3 py-1 text-xs font-bold transition ${
               selectedYear === 'ALL'
                 ? 'bg-red-700 text-white shadow-xs'
-                : 'border border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-50'
+                : 'border border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50'
             }`}
           >
             {t.publications.allYears}
@@ -296,16 +297,16 @@ export default function PublicationsSection() {
               className={`rounded-full px-3 py-1 text-xs font-bold transition ${
                 selectedYear === year
                   ? 'bg-red-700 text-white shadow-xs'
-                  : 'border border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-50'
+                  : 'border border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50'
               }`}
             >
-              {year} <span className="ml-1 opacity-70 text-[10px]">({yearCounts[year]})</span>
+              {year} <span className={`ml-1 text-[10px] font-semibold ${selectedYear === year ? 'text-red-100' : 'text-slate-600'}`}>({yearCounts[year]})</span>
             </button>
           ))}
         </div>
 
         {/* Results Counter summary */}
-        <div className="mt-3 flex items-center justify-between text-xs font-medium text-slate-500">
+        <div className="mt-3 flex items-center justify-between text-xs font-medium text-slate-600">
           <span>
             {lang === 'tr' ? (
               <>
@@ -345,7 +346,7 @@ export default function PublicationsSection() {
         {paginatedPublications.length === 0 ? (
           <div className="rounded-3xl border border-dashed border-slate-300 bg-white p-12 text-center">
             <p className="text-lg font-bold text-slate-700">{t.publications.noResults}</p>
-            <p className="mt-1 text-sm text-slate-500">{t.publications.noResultsSub}</p>
+            <p className="mt-1 text-sm text-slate-600">{t.publications.noResultsSub}</p>
             <button
               type="button"
               onClick={() => {
@@ -417,14 +418,14 @@ export default function PublicationsSection() {
                 </p>
 
                 {/* Journal & Identifiers */}
-                <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-500 font-medium">
+                <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-600 font-medium">
                   {pub.journal && (
                     <span className="font-semibold text-slate-800 italic">
                       {pub.journal}
                     </span>
                   )}
-                  {pub.pmid && <span>PMID: <strong className="text-slate-700">{pub.pmid}</strong></span>}
-                  {pub.doi && <span>DOI: <strong className="text-slate-700">{pub.doi}</strong></span>}
+                  {pub.pmid && <span>PMID: <strong className="text-slate-800">{pub.pmid}</strong></span>}
+                  {pub.doi && <span>DOI: <strong className="text-slate-800">{pub.doi}</strong></span>}
                 </div>
 
                 {/* Abstract Section */}
@@ -459,7 +460,7 @@ export default function PublicationsSection() {
                 {/* Figures Gallery */}
                 {hasFigures && (
                   <div className="mt-4 border-t border-slate-100 pt-3">
-                    <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2">
+                    <p className="text-[11px] font-bold uppercase tracking-wider text-slate-600 mb-2">
                       {t.publications.figuresLabel}
                     </p>
                     <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-2">
@@ -469,15 +470,17 @@ export default function PublicationsSection() {
                           type="button"
                           onClick={() => setModalFigure({ url: fig.url || '', caption: fig.caption, title: pub.title })}
                           className="group/fig relative aspect-square overflow-hidden rounded-xl border border-slate-200 bg-slate-50 hover:border-red-400 hover:shadow-xs transition"
+                          aria-label={fig.label || `Figure ${fIdx + 1}`}
                         >
                           {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img
                             src={fig.url}
-                            alt={fig.label || `Figure ${fIdx + 1}`}
+                            alt=""
+                            aria-hidden="true"
                             loading="lazy"
                             className="h-full w-full object-cover transition duration-300 group-hover/fig:scale-105"
                           />
-                          <span className="absolute bottom-0 inset-x-0 bg-black/60 px-1 py-0.5 text-[10px] font-semibold text-white text-center truncate">
+                          <span className="absolute bottom-0 inset-x-0 bg-black/60 px-1 py-0.5 text-[10px] font-semibold text-white text-center truncate" aria-hidden="true">
                             {fig.label || `Fig ${fIdx + 1}`}
                           </span>
                         </button>
@@ -531,8 +534,8 @@ export default function PublicationsSection() {
       {/* Numbered Pagination Controls */}
       {totalPages > 1 && (
         <nav aria-label="Publications pagination" className="mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-slate-200 pt-6">
-          <div className="text-xs font-medium text-slate-500">
-            {t.publications.page} <strong className="text-slate-800">{currentPage}</strong> / <strong className="text-slate-800">{totalPages}</strong> ({filteredAndSortedPublications.length} {t.publications.itemsCount})
+          <div className="text-xs font-medium text-slate-600">
+            {t.publications.page} <strong className="text-slate-900">{currentPage}</strong> / <strong className="text-slate-900">{totalPages}</strong> ({filteredAndSortedPublications.length} {t.publications.itemsCount})
           </div>
 
           <div className="flex items-center gap-1">
@@ -554,7 +557,7 @@ export default function PublicationsSection() {
             {getPageNumbers().map((p, idx) => {
               if (p === '...') {
                 return (
-                  <span key={`ellipsis-${idx}`} className="px-2 py-1 text-xs text-slate-400">
+                  <span key={`ellipsis-${idx}`} className="px-2 py-1 text-xs font-bold text-slate-600">
                     ...
                   </span>
                 );
@@ -607,13 +610,14 @@ export default function PublicationsSection() {
           >
             <div className="flex items-start justify-between gap-3 border-b border-slate-200 pb-3 min-w-0">
               <div className="min-w-0 flex-1">
-                <h4 className="text-sm sm:text-base font-bold text-slate-900 line-clamp-1">{modalFigure.title}</h4>
-                <p className="text-xs text-slate-500">{t.publications.fullResolution}</p>
+                <h3 className="text-sm sm:text-base font-bold text-slate-900 line-clamp-1">{modalFigure.title}</h3>
+                <p className="text-xs text-slate-600">{t.publications.fullResolution}</p>
               </div>
               <button
                 type="button"
                 onClick={() => setModalFigure(null)}
-                className="rounded-full bg-slate-100 p-2 text-slate-500 hover:bg-slate-200 hover:text-slate-800 shrink-0"
+                aria-label="Kapat"
+                className="rounded-full bg-slate-100 p-2 text-slate-600 hover:bg-slate-200 hover:text-slate-900 shrink-0"
               >
                 <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -625,7 +629,8 @@ export default function PublicationsSection() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={modalFigure.url}
-                alt="Figure Full Size"
+                alt=""
+                aria-hidden="true"
                 className="max-h-[60vh] sm:max-h-[65vh] max-w-full w-auto rounded-lg object-contain"
               />
             </div>

@@ -234,7 +234,7 @@ export default function KuybimPage() {
 
       <section id="research" className="mt-12 sm:mt-16 scroll-mt-24 px-4 sm:px-6 lg:px-8">
         <div className="border-b border-slate-200 pb-4">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-red-700">{t.research.sectionLabel}</p>
+          <h2 className="text-sm font-semibold uppercase tracking-[0.2em] text-red-700">{t.research.sectionLabel}</h2>
         </div>
 
         <article className="mt-6 rounded-2xl sm:rounded-[28px] border border-slate-200 bg-white p-5 sm:p-7 lg:p-8 shadow-sm">
@@ -326,14 +326,14 @@ export default function KuybimPage() {
             >
               <div className="flex h-14 w-20 shrink-0 items-center justify-center rounded-xl bg-slate-50 border border-slate-100 p-2">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={inst.logo} alt={inst.logoAlt} loading="lazy" className="max-h-10 max-w-full object-contain transition duration-200 group-hover:scale-105" />
+                <img src={inst.logo} alt="" aria-hidden="true" loading="lazy" className="max-h-10 max-w-full object-contain transition duration-200 group-hover:scale-105" />
               </div>
               <div className="min-w-0 flex-1">
                 <div className="flex items-center justify-between gap-2">
-                  <h4 className="text-sm font-bold text-slate-900 line-clamp-1 group-hover:text-red-700 transition">{inst.name}</h4>
-                  <span className="text-[10px] font-semibold text-slate-400 shrink-0">{inst.badge}</span>
+                  <h3 className="text-sm font-bold text-slate-900 line-clamp-1 group-hover:text-red-700 transition">{inst.name}</h3>
+                  <span className="text-[10px] font-semibold text-slate-600 shrink-0">{inst.badge}</span>
                 </div>
-                <p className="text-xs text-slate-500 line-clamp-1">{lang === 'tr' && inst.subTr ? inst.subTr : inst.sub}</p>
+                <p className="text-xs text-slate-600 line-clamp-1">{lang === 'tr' && inst.subTr ? inst.subTr : inst.sub}</p>
               </div>
             </a>
           ))}
@@ -353,7 +353,8 @@ export default function KuybimPage() {
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={collab.logo}
-                      alt={collab.logoAlt}
+                      alt=""
+                      aria-hidden="true"
                       loading="lazy"
                       className="max-h-11 max-w-full object-contain"
                     />
@@ -381,8 +382,8 @@ export default function KuybimPage() {
                     </div>
                   )}
 
-                  <p className="mt-2.5 text-xs font-medium text-slate-500">
-                    {collab.department} • <span className="font-semibold text-slate-700">{collab.institution}</span>
+                  <p className="mt-2.5 text-xs font-medium text-slate-600">
+                    {collab.department} • <span className="font-semibold text-slate-800">{collab.institution}</span>
                   </p>
                 </div>
 

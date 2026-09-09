@@ -55,7 +55,8 @@ function MemberAvatar({
       >
         <Image
           src={image}
-          alt={name}
+          alt=""
+          aria-hidden="true"
           fill
           unoptimized={image.startsWith('http')}
           sizes={size === 'lg' ? '112px' : '80px'}
@@ -168,7 +169,7 @@ export default function TeamView({ members: initialMembers, sheetUrl }: TeamView
           <span className="text-sm sm:text-base font-bold text-slate-800">
             {sortedAndFilteredMembers.length} {t.teams.activeMembers}
           </span>
-          <span className="text-xs text-slate-400 font-medium">
+          <span className="text-xs text-slate-600 font-medium">
             {t.teams.alphabetical}
           </span>
         </div>
@@ -177,10 +178,11 @@ export default function TeamView({ members: initialMembers, sheetUrl }: TeamView
         <div className="relative w-full sm:w-80">
           <input
             type="text"
+            aria-label={t.teams.searchPlaceholder}
             placeholder={t.teams.searchPlaceholder}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full rounded-full border border-slate-200 bg-white py-2 pl-9 pr-8 text-xs sm:text-sm text-slate-800 placeholder-slate-400 shadow-2xs focus:border-red-600 focus:outline-hidden focus:ring-1 focus:ring-red-600"
+            className="w-full rounded-full border border-slate-200 bg-white py-2 pl-9 pr-8 text-xs sm:text-sm text-slate-800 placeholder-slate-500 shadow-2xs focus:border-red-600 focus:outline-hidden focus:ring-1 focus:ring-red-600"
           />
           <svg
             className="absolute left-3 top-2.5 h-4 w-4 text-slate-400"
@@ -193,7 +195,8 @@ export default function TeamView({ members: initialMembers, sheetUrl }: TeamView
           {searchQuery && (
             <button
               onClick={() => setSearchQuery('')}
-              className="absolute right-3 top-2.5 text-xs text-slate-400 hover:text-slate-600 cursor-pointer"
+              aria-label={t.teams.clearSearch}
+              className="absolute right-3 top-2.5 text-xs text-slate-500 hover:text-slate-700 cursor-pointer"
             >
               ✕
             </button>
@@ -243,7 +246,7 @@ export default function TeamView({ members: initialMembers, sheetUrl }: TeamView
                 </div>
 
                 <div className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between">
-                  <span className="text-xs text-slate-400 font-medium">
+                  <span className="text-xs text-slate-600 font-medium">
                     KUYBIIGST-M
                   </span>
                   {hasLongBio && (
@@ -279,7 +282,7 @@ export default function TeamView({ members: initialMembers, sheetUrl }: TeamView
             {/* Close Button */}
             <button
               onClick={() => setActiveMember(null)}
-              className="absolute right-5 top-5 flex h-9 w-9 items-center justify-center rounded-full bg-slate-100 text-slate-500 transition hover:bg-red-50 hover:text-red-700 cursor-pointer"
+              className="absolute right-5 top-5 flex h-9 w-9 items-center justify-center rounded-full bg-slate-100 text-slate-600 transition hover:bg-red-50 hover:text-red-700 cursor-pointer"
               aria-label={t.teams.close}
             >
               ✕
@@ -303,9 +306,9 @@ export default function TeamView({ members: initialMembers, sheetUrl }: TeamView
 
             {/* Biography */}
             <div className="mt-6 border-t border-slate-100 pt-6">
-              <h4 className="text-xs font-bold uppercase tracking-[0.18em] text-slate-400 mb-3">
+              <h3 className="text-xs font-bold uppercase tracking-[0.18em] text-slate-600 mb-3">
                 {lang === 'tr' ? 'Biyografi & Araştırma Alanları' : 'Biography & Research Interests'}
-              </h4>
+              </h3>
               <p className="whitespace-pre-line text-sm sm:text-base leading-relaxed text-slate-700">
                 {activeMember.bio}
               </p>

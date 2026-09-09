@@ -56,7 +56,7 @@ export default function TeamsHeader({ memberCount }: TeamsHeaderProps) {
             <h2 className="text-2xl sm:text-3xl font-black text-slate-900">
               {t.pi.title}
             </h2>
-            <p className="mt-1 text-xs sm:text-sm font-semibold text-slate-500">
+            <p className="mt-1 text-xs sm:text-sm font-semibold text-slate-600">
               {t.teams.piSubtitle}
             </p>
             <p className="mt-3 sm:mt-4 max-w-3xl text-sm sm:text-base leading-relaxed text-slate-700">
@@ -73,7 +73,7 @@ export default function TeamsHeader({ memberCount }: TeamsHeaderProps) {
             <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
               {t.teams.membersTitle}
             </h2>
-            <p className="text-xs sm:text-sm text-slate-500 mt-1">
+            <p className="text-xs sm:text-sm text-slate-600 mt-1">
               {t.teams.membersSubtitle}
             </p>
           </div>

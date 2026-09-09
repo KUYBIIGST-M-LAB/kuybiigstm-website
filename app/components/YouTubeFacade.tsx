@@ -49,7 +49,8 @@ export default function YouTubeFacade({
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={thumbnailUrl}
-          alt={title}
+          alt=""
+          aria-hidden="true"
           onError={() => {
             if (!thumbError) setThumbError(true);
           }}
