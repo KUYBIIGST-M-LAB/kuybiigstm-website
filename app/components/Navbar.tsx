@@ -4,24 +4,21 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-
-interface NavItem {
-  label: string;
-  href: string;
-}
-
-const navItems: NavItem[] = [
-  { label: 'Home', href: '/' },
-  { label: 'Research', href: '/#research' },
-  { label: 'Publications', href: '/#publications' },
-  { label: 'Our Team', href: '/teams' },
-  { label: 'Collaborators', href: '/#collaborators' },
-];
+import { useLanguage } from '@/lib/i18n';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  const { lang, setLang, t } = useLanguage();
+
+  const navItems = [
+    { label: t.nav.home, href: '/' },
+    { label: t.nav.research, href: '/#research' },
+    { label: t.nav.publications, href: '/#publications' },
+    { label: t.nav.team, href: '/teams' },
+    { label: t.nav.collaborators, href: '/#collaborators' },
+  ];
 
   // Track scroll position for dynamic background
   useEffect(() => {
@@ -65,7 +62,7 @@ export default function Navbar() {
       className={`sticky top-0 z-50 border-b transition-all duration-300 ${
         scrolled
           ? 'border-red-950/40 bg-red-950/98 shadow-md backdrop-blur-md'
-          : 'border-red-950/20 bg-red-950/95 backdrop-blur-sm'
+          : 'border-red-950/20 bg-red-950/90 backdrop-blur-xs'
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-2.5 sm:px-6 lg:px-8">
@@ -75,7 +72,7 @@ export default function Navbar() {
           className="group flex items-center gap-2.5 sm:gap-3"
           onClick={() => setIsOpen(false)}
         >
-          <div className="flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center overflow-hidden rounded-xl bg-white p-1 shadow-sm transition group-hover:scale-105">
+          <div className="flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center overflow-hidden rounded-xl bg-white p-1 shadow-xs transition group-hover:scale-105">
             <Image
               src="/img/logo.webp"
               alt="KUYBIIGST-M Logo"
@@ -90,60 +87,118 @@ export default function Navbar() {
               KUYBIIGST-M
             </span>
             <span
-              lang="en"
               className="text-[9px] sm:text-[10px] font-semibold uppercase tracking-[0.16em] sm:tracking-[0.2em] text-red-200"
             >
-              Structural Biology Lab
+              {lang === 'tr' ? 'Yapısal Biyoloji Lab' : 'Structural Biology Lab'}
             </span>
           </div>
         </Link>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden items-center gap-1 lg:gap-2 md:flex">
-          {navItems.map((item) => {
-            const isTeamsPage = item.href === '/teams' && pathname === '/teams';
-            return (
-              <Link
-                key={item.label}
-                href={item.href}
-                className={`rounded-full px-3.5 py-1.5 text-sm font-medium transition ${
-                  isTeamsPage
-                    ? 'bg-red-800 text-white shadow-xs'
-                    : 'text-red-100 hover:bg-red-900/60 hover:text-white'
-                }`}
-              >
-                {item.label}
-              </Link>
-            );
-          })}
-        </nav>
+        {/* Desktop Navigation & Language Switcher */}
+        <div className="hidden items-center gap-2 lg:gap-3 md:flex">
+          <nav className="flex items-center gap-1 lg:gap-2">
+            {navItems.map((item) => {
+              const isTeamsPage = item.href === '/teams' && pathname === '/teams';
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`rounded-full px-3.5 py-1.5 text-sm font-medium transition ${
+                    isTeamsPage
+                      ? 'bg-red-800 text-white shadow-xs'
+                      : 'text-red-100 hover:bg-red-900/60 hover:text-white'
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
+          </nav>
 
-        {/* Mobile Hamburger Button */}
-        <button
-          type="button"
-          onClick={() => setIsOpen(!isOpen)}
-          aria-expanded={isOpen}
-          aria-label="Toggle navigation menu"
-          className="relative flex h-11 w-11 items-center justify-center rounded-xl bg-red-900/60 text-white transition hover:bg-red-900 focus:outline-hidden focus:ring-2 focus:ring-red-400 md:hidden"
-        >
-          <div className="flex h-5 w-5 flex-col items-center justify-center gap-1.5">
-            <span
-              className={`h-0.5 w-5 rounded-full bg-white transition-all duration-300 ${
-                isOpen ? 'translate-y-2 rotate-45' : ''
+          {/* Desktop Language Switcher */}
+          <div className="ml-2 flex items-center rounded-full border border-red-800/80 bg-red-900/60 p-0.5 text-xs font-bold text-white shadow-inner">
+            <button
+              type="button"
+              onClick={() => setLang('en')}
+              className={`rounded-full px-2.5 py-1 transition ${
+                lang === 'en'
+                  ? 'bg-white text-red-950 shadow-xs'
+                  : 'text-red-200 hover:text-white'
               }`}
-            />
-            <span
-              className={`h-0.5 w-5 rounded-full bg-white transition-all duration-300 ${
-                isOpen ? 'opacity-0' : ''
+              aria-label="English"
+            >
+              EN
+            </button>
+            <button
+              type="button"
+              onClick={() => setLang('tr')}
+              className={`rounded-full px-2.5 py-1 transition ${
+                lang === 'tr'
+                  ? 'bg-white text-red-950 shadow-xs'
+                  : 'text-red-200 hover:text-white'
               }`}
-            />
-            <span
-              className={`h-0.5 w-5 rounded-full bg-white transition-all duration-300 ${
-                isOpen ? '-translate-y-2 -rotate-45' : ''
-              }`}
-            />
+              aria-label="Türkçe"
+            >
+              TR
+            </button>
           </div>
-        </button>
+        </div>
+
+        {/* Mobile Header Right: Lang Switcher & Hamburger */}
+        <div className="flex items-center gap-2 md:hidden">
+          {/* Mobile Quick Lang Switcher */}
+          <div className="flex items-center rounded-full border border-red-800/80 bg-red-900/60 p-0.5 text-[11px] font-bold text-white">
+            <button
+              type="button"
+              onClick={() => setLang('en')}
+              className={`rounded-full px-2 py-0.5 transition ${
+                lang === 'en'
+                  ? 'bg-white text-red-950 shadow-xs'
+                  : 'text-red-200'
+              }`}
+            >
+              EN
+            </button>
+            <button
+              type="button"
+              onClick={() => setLang('tr')}
+              className={`rounded-full px-2 py-0.5 transition ${
+                lang === 'tr'
+                  ? 'bg-white text-red-950 shadow-xs'
+                  : 'text-red-200'
+              }`}
+            >
+              TR
+            </button>
+          </div>
+
+          {/* Mobile Hamburger Button */}
+          <button
+            type="button"
+            onClick={() => setIsOpen(!isOpen)}
+            aria-expanded={isOpen}
+            aria-label="Toggle navigation menu"
+            className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-red-900/60 text-white transition hover:bg-red-900 focus:outline-hidden focus:ring-2 focus:ring-red-400"
+          >
+            <div className="flex h-5 w-5 flex-col items-center justify-center gap-1.5">
+              <span
+                className={`h-0.5 w-5 rounded-full bg-white transition-all duration-300 ${
+                  isOpen ? 'translate-y-2 rotate-45' : ''
+                }`}
+              />
+              <span
+                className={`h-0.5 w-5 rounded-full bg-white transition-all duration-300 ${
+                  isOpen ? 'opacity-0' : ''
+                }`}
+              />
+              <span
+                className={`h-0.5 w-5 rounded-full bg-white transition-all duration-300 ${
+                  isOpen ? '-translate-y-2 -rotate-45' : ''
+                }`}
+              />
+            </div>
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu Backdrop & Drawer */}
@@ -161,7 +216,7 @@ export default function Navbar() {
                 const isTeamsPage = item.href === '/teams' && pathname === '/teams';
                 return (
                   <Link
-                    key={item.label}
+                    key={item.href}
                     href={item.href}
                     onClick={() => setIsOpen(false)}
                     className={`flex items-center justify-between rounded-2xl px-4 py-3 text-base font-semibold transition ${
@@ -186,7 +241,7 @@ export default function Navbar() {
                 <span>✉ Contact: vpri@ku.edu.tr</span>
               </a>
               <p className="text-center text-[11px] text-red-300">
-                Koç University • Rumelifeneri Campus, Istanbul
+                {lang === 'tr' ? 'Koç Üniversitesi • Rumelifeneri Kampüsü, İstanbul' : 'Koç University • Rumelifeneri Campus, Istanbul'}
               </p>
             </div>
           </div>
@@ -195,4 +250,3 @@ export default function Navbar() {
     </header>
   );
 }
-

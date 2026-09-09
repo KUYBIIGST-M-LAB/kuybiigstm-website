@@ -1,27 +1,13 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import HeroParallax from './components/HeroParallax';
 import PublicationsSection from './components/PublicationsSection';
 import CloudHeroCard from './components/CloudHeroCard';
 import YouTubeFacade from './components/YouTubeFacade';
+import { useLanguage } from '@/lib/i18n';
 
-const researchPillars = [
-  {
-    title: 'Ambient-Temperature Serial Femtosecond X-ray Crystallography',
-    description:
-      'We use serial femtosecond X-ray crystallography (SFX) with an X-ray free-electron laser to collect diffraction data from ribosome microcrystals in liquid suspension at near-physiological temperatures.',
-  },
-  {
-    title: 'Ribosome Structure and Antibiotic Resistance',
-    description:
-      'Our research focuses on elucidating how ribosomal complexes assemble, move, and respond to antibiotics or decoding factors at atomic resolution.',
-  },
-  {
-    title: 'Method Development for Challenging Biomacromolecules',
-    description:
-      'We develop and apply new structural biology workflows to capture dynamics in large, medically relevant macromolecular complexes.',
-  },
-];
 
 
 const institutionalPartners = [
@@ -186,33 +172,23 @@ const collaborators = [
   },
 ];
 
-const stats = [
-  { value: '3 MDa', label: 'largest ribosomal structure solved' },
-  { value: 'XFEL', label: 'serial femtosecond X-ray platform' },
-  { value: '1st', label: 'comprehensive structural biology center in Turkey' },
-];
-
-const featuredResearch = {
-  title: 'Ambient-Temperature Serial Femtosecond X-ray Crystallographic Studies of Ribosome Complexes',
-  summary:
-    'High-resolution ribosome structures determined by cryo X-ray crystallography have provided important insights into the mechanism of translation. Such studies have thus far relied on large ribosome crystals kept at cryogenic temperatures to reduce radiation damage. We use the serial femtosecond X-ray crystallography (SFX) with an X-ray free-electron laser (XFEL) to obtain diffraction data from ribosome microcrystals in liquid suspension at ambient temperature. Small 30S ribosomal subunit microcrystals programmed with decoding complexes and bound to either antibiotic compounds or their next-generation derivatives diffracted to high resolution. Our results demonstrate the feasibility of using SFX to better understand the structural mechanisms underpinning the interactions between ribosomes and other substrates such as antibiotics and decoding complexes. We have determined the structure of large (50S) ribosomal subunit in record-short time by using record-low amount of sample during and XFEL beamtime. This structure is the largest one solved to date by any FEL source to near atomic resolution (3 MDa). We expect that these results will enable routine structural studies, at near-physiological temperatures, of the large ribosomal subunit bound to clinically-relevant classes of antibiotics targeting it, e.g. macrolides and ketolides, also with the goal of aiding development of the next generation of these classes of antibiotics. Overall, the ability to collect diffraction data at near-physiological temperatures promises to provide new fundamental insights into the structural dynamics of the ribosome and its functional complexes.',
-};
-
 
 export default function KuybimPage() {
+  const { t } = useLanguage();
+
   return (
     <div className="px-0 py-0 overflow-x-hidden">
       <HeroParallax image="/img/wallpaper.webp">
         <CloudHeroCard>
           <div className="space-y-2.5 sm:space-y-3">
             <div className="inline-flex items-center gap-1.5 rounded-full bg-red-100/90 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-red-800 border border-red-200/50">
-              Koç University
+              {t.hero.institutionBadge}
             </div>
             <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black leading-tight tracking-tight text-slate-900">
-              KUYBIIGST-M
+              {t.hero.title}
             </h1>
             <p className="text-xs sm:text-sm leading-relaxed text-slate-700 font-medium max-w-xs sm:max-w-sm lg:max-w-md">
-              The Koc University Structural Biology &amp; Innovative Drug Development Center (KUYBIIGST-M) is the first comprehensive structural biology center in Turkey. Our goal is to unravel the 3D structures of biomacromolecules.
+              {t.hero.description}
             </p>
           </div>
 
@@ -221,13 +197,13 @@ export default function KuybimPage() {
               href="#research"
               className="rounded-full bg-red-700 px-4 py-2 text-xs font-semibold text-white shadow-xs transition hover:bg-red-600 active:scale-95"
             >
-              Research
+              {t.hero.researchBtn}
             </a>
             <a
               href="#team"
               className="rounded-full border border-slate-300 bg-white/95 px-4 py-2 text-xs font-semibold text-slate-800 shadow-xs transition hover:border-red-300 hover:bg-red-50 hover:text-red-700 active:scale-95"
             >
-              Our Team
+              {t.hero.teamBtn}
             </a>
           </div>
         </CloudHeroCard>
@@ -235,22 +211,22 @@ export default function KuybimPage() {
 
       <section id="research" className="mt-12 sm:mt-16 scroll-mt-24 px-4 sm:px-6 lg:px-8">
         <div className="border-b border-slate-200 pb-4">
-          <p lang="en" className="text-sm font-semibold uppercase tracking-[0.2em] text-red-700">Research</p>
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-red-700">{t.research.sectionLabel}</p>
         </div>
 
         <article className="mt-6 rounded-2xl sm:rounded-[28px] border border-slate-200 bg-white p-5 sm:p-7 lg:p-8 shadow-sm">
-          <h3 className="text-xl sm:text-2xl font-black text-slate-900 lg:text-3xl">{featuredResearch.title}</h3>
-          <p className="mt-3 sm:mt-4 text-sm sm:text-base leading-relaxed sm:leading-8 text-slate-700">{featuredResearch.summary}</p>
+          <h3 className="text-xl sm:text-2xl font-black text-slate-900 lg:text-3xl">{t.research.title}</h3>
+          <p className="mt-3 sm:mt-4 text-sm sm:text-base leading-relaxed sm:leading-8 text-slate-700">{t.research.summary}</p>
 
           <div className="mt-6 grid gap-5 lg:grid-cols-2">
             <YouTubeFacade
               videoId="t7jUZwhZdd0"
-              title="Ambient-Temperature Serial Femtosecond X-ray Crystallography of Ribosome Complexes"
+              title={t.research.video1Title}
             />
 
             <YouTubeFacade
               videoId="RG-PYmeq2XE"
-              title="Structural Mechanisms & Dynamics of Translation"
+              title={t.research.video2Title}
             />
           </div>
         </article>
@@ -260,21 +236,21 @@ export default function KuybimPage() {
 
       <section id="team" className="mt-12 sm:mt-16 scroll-mt-24 px-4 sm:px-6 lg:px-8">
         <div className="mb-6 border-b border-slate-200 pb-4">
-          <p lang="en" className="text-sm font-semibold uppercase tracking-[0.2em] text-red-700">Our Team</p>
-          <h2 className="mt-2 text-2xl sm:text-3xl font-black text-slate-900">Principal Investigator</h2>
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-red-700">{t.nav.team}</p>
+          <h2 className="mt-2 text-2xl sm:text-3xl font-black text-slate-900">{t.pi.role}</h2>
         </div>
 
         <div className="rounded-2xl sm:rounded-[28px] border border-slate-200 bg-white p-5 sm:p-6 shadow-sm">
           <div className="flex flex-col gap-6 sm:gap-8 md:flex-row md:items-center text-center md:text-left">
             <div className="relative mx-auto h-36 w-36 shrink-0 overflow-hidden rounded-full border-4 border-slate-100 bg-slate-100 shadow-md sm:h-44 sm:w-44 md:mx-0 md:h-48 md:w-48">
-              <Image src="/img/hasan-demirci.png" alt="Hasan DeMirci" fill className="object-cover" sizes="(max-width: 768px) 176px, 192px" />
+              <Image src="/img/hasan-demirci.png" alt={t.pi.title} fill className="object-cover" sizes="(max-width: 768px) 176px, 192px" />
             </div>
 
             <div className="flex-1">
-              <h3 className="text-xl sm:text-2xl font-black text-slate-900">Dr. Hasan DeMirci, PhD.</h3>
-              <p lang="en" className="mt-2 sm:mt-3 text-xs sm:text-sm font-semibold uppercase tracking-[0.18em] text-red-800">Principal Investigator</p>
+              <h3 className="text-xl sm:text-2xl font-black text-slate-900">{t.pi.title}</h3>
+              <p className="mt-2 sm:mt-3 text-xs sm:text-sm font-semibold uppercase tracking-[0.18em] text-red-800">{t.pi.role}</p>
               <p className="mt-3 sm:mt-4 max-w-3xl text-sm sm:text-base leading-relaxed sm:leading-8 text-slate-700">
-                I completed my B.Sc. at Bosphorus University in 2002 and later received my Ph.D. in Molecular Biology, Cell Biology and Biochemistry at Brown University in 2007. My research focuses on the structural biology of mutant prokaryotic ribosomes and on developing methods to study large biomacromolecular systems at near-physiological temperatures.
+                {t.pi.bio}
               </p>
 
               <div className="mt-5 sm:mt-6 flex flex-wrap justify-center md:justify-start gap-4 sm:gap-6 text-xs sm:text-sm text-slate-600">
@@ -297,7 +273,7 @@ export default function KuybimPage() {
           href="/teams"
           className="inline-flex items-center rounded-full bg-red-700 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-red-950/20 transition hover:bg-red-600"
         >
-          Our Team →
+          {t.pi.teamButton}
         </Link>
       </div>
 
@@ -306,10 +282,10 @@ export default function KuybimPage() {
         <div className="border-b border-slate-200 pb-5">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div>
-              <p lang="en" className="text-sm font-semibold uppercase tracking-[0.2em] text-red-700">Collaborators &amp; Global Network</p>
-              <h2 className="mt-2 text-3xl font-black text-slate-900 sm:text-4xl">Academic and Research Partnerships</h2>
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-red-700">{t.collaborators.sectionLabel}</p>
+              <h2 className="mt-2 text-3xl font-black text-slate-900 sm:text-4xl">{t.collaborators.title}</h2>
               <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate-600">
-                Pioneering collaborations in serial femtosecond crystallography, ribosome dynamics, RNA modifications, and disease mechanics with world-leading universities and laboratories.
+                {t.collaborators.description}
               </p>
             </div>
           </div>

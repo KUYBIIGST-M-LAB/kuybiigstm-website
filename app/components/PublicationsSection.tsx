@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo } from 'react';
 import publicationsRaw from '../../data/publications.json';
+import { useLanguage } from '@/lib/i18n';
 
 export interface FigureItem {
   label?: string;
@@ -37,23 +38,33 @@ export interface Publication {
 
 const publications = publicationsRaw as Publication[];
 
+type SortOption = 'newest' | 'oldest' | 'title';
+
 export default function PublicationsSection() {
+  const { t, lang } = useLanguage();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedYear, setSelectedYear] = useState<string>('ALL');
-  const [visibleCount, setVisibleCount] = useState(8);
+  const [sortBy, setSortBy] = useState<SortOption>('newest');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState<number>(10);
   const [expandedAbstracts, setExpandedAbstracts] = useState<Record<string, boolean>>({});
   const [modalFigure, setModalFigure] = useState<{ url: string; caption?: string; title?: string } | null>(null);
 
-  // Extract unique years sorted descending
-  const availableYears = useMemo(() => {
-    const years = Array.from(new Set(publications.map((p) => p.year).filter(Boolean)));
-    years.sort((a, b) => parseInt(b) - parseInt(a));
-    return years;
+  // Extract unique years sorted descending and count per year
+  const { availableYears, yearCounts } = useMemo(() => {
+    const counts: Record<string, number> = {};
+    publications.forEach((p) => {
+      if (p.year) {
+        counts[p.year] = (counts[p.year] || 0) + 1;
+      }
+    });
+    const years = Object.keys(counts).sort((a, b) => parseInt(b) - parseInt(a));
+    return { availableYears: years, yearCounts: counts };
   }, []);
 
-  // Filter publications based on search and year
-  const filteredPublications = useMemo(() => {
-    return publications.filter((pub) => {
+  // Filter & sort publications
+  const filteredAndSortedPublications = useMemo(() => {
+    const filtered = publications.filter((pub) => {
       const matchesYear = selectedYear === 'ALL' || pub.year === selectedYear;
       if (!matchesYear) return false;
 
@@ -65,14 +76,42 @@ export default function PublicationsSection() {
         pub.abstract.toLowerCase().includes(q) ||
         pub.journal.toLowerCase().includes(q) ||
         pub.pmid?.includes(q) ||
-        pub.doi?.toLowerCase().includes(q)
+        pub.doi?.toLowerCase().includes(q) ||
+        pub.year?.includes(q)
       );
     });
-  }, [searchQuery, selectedYear]);
 
-  const displayedPublications = useMemo(() => {
-    return filteredPublications.slice(0, visibleCount);
-  }, [filteredPublications, visibleCount]);
+    return filtered.sort((a, b) => {
+      if (sortBy === 'newest') {
+        return parseInt(b.year || '0') - parseInt(a.year || '0');
+      }
+      if (sortBy === 'oldest') {
+        return parseInt(a.year || '0') - parseInt(b.year || '0');
+      }
+      if (sortBy === 'title') {
+        return a.title.localeCompare(b.title);
+      }
+      return 0;
+    });
+  }, [searchQuery, selectedYear, sortBy]);
+
+  // Reset to page 1 whenever filters change
+  const [prevFilterKey, setPrevFilterKey] = useState('');
+  const currentFilterKey = `${searchQuery}|${selectedYear}|${sortBy}|${pageSize}`;
+  if (prevFilterKey !== currentFilterKey) {
+    setPrevFilterKey(currentFilterKey);
+    setCurrentPage(1);
+  }
+
+  // Pagination calculations
+  const totalPages = Math.ceil(filteredAndSortedPublications.length / pageSize) || 1;
+  const paginatedPublications = useMemo(() => {
+    const start = (currentPage - 1) * pageSize;
+    return filteredAndSortedPublications.slice(start, start + pageSize);
+  }, [filteredAndSortedPublications, currentPage, pageSize]);
+
+  const startIndex = (currentPage - 1) * pageSize + 1;
+  const endIndex = Math.min(currentPage * pageSize, filteredAndSortedPublications.length);
 
   const toggleAbstract = (id: string) => {
     setExpandedAbstracts((prev) => ({
@@ -81,8 +120,14 @@ export default function PublicationsSection() {
     }));
   };
 
-  const handleLoadMore = () => {
-    setVisibleCount((prev) => prev + 8);
+  const handlePageChange = (newPage: number) => {
+    if (newPage < 1 || newPage > totalPages) return;
+    setCurrentPage(newPage);
+    // Smooth scroll to publications header
+    const section = document.getElementById('publications');
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   };
 
   // Helper to bold Hasan Demirci in author list
@@ -101,32 +146,49 @@ export default function PublicationsSection() {
     });
   };
 
+  // Helper for generating pagination buttons list (with ellipsis)
+  const getPageNumbers = () => {
+    const pages: (number | string)[] = [];
+    if (totalPages <= 7) {
+      for (let i = 1; i <= totalPages; i++) pages.push(i);
+    } else {
+      if (currentPage <= 3) {
+        pages.push(1, 2, 3, 4, '...', totalPages);
+      } else if (currentPage >= totalPages - 2) {
+        pages.push(1, '...', totalPages - 3, totalPages - 2, totalPages - 1, totalPages);
+      } else {
+        pages.push(1, '...', currentPage - 1, currentPage, currentPage + 1, '...', totalPages);
+      }
+    }
+    return pages;
+  };
+
   return (
     <section id="publications" className="mt-12 sm:mt-16 scroll-mt-24 px-3 sm:px-6 lg:px-8 min-w-0 max-w-full">
       {/* Section Header */}
       <div className="border-b border-slate-200 pb-6">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
-            <p lang="en" className="text-sm font-semibold uppercase tracking-[0.2em] text-red-700">
-              Publications &amp; Research Articles
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-red-700">
+              {t.publications.sectionLabel}
             </p>
             <h2 className="mt-2 text-2xl sm:text-3xl font-black text-slate-900 lg:text-4xl">
-              All Research Publications
+              {t.publications.title}
             </h2>
-            <p className="mt-2 text-sm sm:text-base text-slate-600">
-              Comprehensive list of peer-reviewed articles, structural studies, and methods published by Hasan DeMirci and the KUYBIIGST-M laboratory.
+            <p className="mt-2 text-sm sm:text-base text-slate-600 max-w-3xl">
+              {t.publications.description}
             </p>
           </div>
           <div className="flex items-center gap-2 rounded-2xl border border-red-100 bg-red-50/80 px-4 py-2.5 shadow-sm">
             <span className="text-2xl font-black text-red-800">{publications.length}</span>
             <div className="text-xs font-semibold leading-tight text-red-900">
-              Total<br />Articles
+              {t.publications.totalArticles}
             </div>
           </div>
         </div>
 
         {/* Filter and Search Bar */}
-        <div className="mt-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <div className="mt-6 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           {/* Search Input */}
           <div className="relative flex-1 max-w-lg">
             <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
@@ -137,18 +199,16 @@ export default function PublicationsSection() {
             <input
               type="text"
               value={searchQuery}
-              onChange={(e) => {
-                setSearchQuery(e.target.value);
-                setVisibleCount(8);
-              }}
-              placeholder="Search by title, author, keyword, journal, or PMID..."
-              className="w-full rounded-full border border-slate-300 bg-white py-2.5 pl-10 pr-10 text-sm text-slate-800 placeholder-slate-400 shadow-sm transition focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder={t.publications.searchPlaceholder}
+              className="w-full rounded-full border border-slate-300 bg-white py-2.5 pl-10 pr-10 text-sm text-slate-800 placeholder-slate-400 shadow-xs transition focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
             />
             {searchQuery && (
               <button
                 type="button"
                 onClick={() => setSearchQuery('')}
                 className="absolute inset-y-0 right-0 flex items-center pr-3.5 text-slate-400 hover:text-slate-600"
+                aria-label="Clear search"
               >
                 <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -157,85 +217,137 @@ export default function PublicationsSection() {
             )}
           </div>
 
-          {/* Year Filter Chips */}
-          <div className="flex flex-wrap items-center gap-1.5 overflow-x-auto no-scrollbar pb-1">
-            <button
-              type="button"
-              onClick={() => {
-                setSelectedYear('ALL');
-                setVisibleCount(8);
-              }}
-              className={`rounded-full px-3.5 py-1.5 text-xs font-bold transition ${
-                selectedYear === 'ALL'
-                  ? 'bg-red-700 text-white shadow-sm'
-                  : 'border border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-50'
-              }`}
-            >
-              All Years
-            </button>
-            {availableYears.slice(0, 8).map((year) => (
-              <button
-                key={year}
-                type="button"
-                onClick={() => {
-                  setSelectedYear(year);
-                  setVisibleCount(8);
-                }}
-                className={`rounded-full px-3.5 py-1.5 text-xs font-bold transition ${
-                  selectedYear === year
-                    ? 'bg-red-700 text-white shadow-sm'
-                    : 'border border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-50'
-                }`}
+          {/* Controls: Year selector & Sort */}
+          <div className="flex flex-wrap items-center gap-3">
+            {/* Year Dropdown */}
+            <div className="flex items-center gap-1.5">
+              <label htmlFor="year-select" className="text-xs font-semibold text-slate-500">
+                {lang === 'tr' ? 'Yıl:' : 'Year:'}
+              </label>
+              <select
+                id="year-select"
+                value={selectedYear}
+                onChange={(e) => setSelectedYear(e.target.value)}
+                className="rounded-full border border-slate-200 bg-white px-3.5 py-1.5 text-xs font-bold text-slate-700 shadow-xs transition hover:border-slate-300 focus:border-red-600 focus:outline-none"
               >
-                {year}
-              </button>
-            ))}
+                <option value="ALL">{t.publications.allYears} ({publications.length})</option>
+                {availableYears.map((year) => (
+                  <option key={year} value={year}>
+                    {year} ({yearCounts[year]})
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Sort Dropdown */}
+            <div className="flex items-center gap-1.5">
+              <label htmlFor="sort-select" className="text-xs font-semibold text-slate-500">
+                {t.publications.sortBy}:
+              </label>
+              <select
+                id="sort-select"
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value as SortOption)}
+                className="rounded-full border border-slate-200 bg-white px-3.5 py-1.5 text-xs font-bold text-slate-700 shadow-xs transition hover:border-slate-300 focus:border-red-600 focus:outline-none"
+              >
+                <option value="newest">{t.publications.sortNewest}</option>
+                <option value="oldest">{t.publications.sortOldest}</option>
+                <option value="title">{t.publications.sortTitle}</option>
+              </select>
+            </div>
+
+            {/* Items Per Page */}
+            <div className="flex items-center gap-1.5">
+              <label htmlFor="page-size-select" className="text-xs font-semibold text-slate-500">
+                {t.publications.perPage}:
+              </label>
+              <select
+                id="page-size-select"
+                value={pageSize}
+                onChange={(e) => setPageSize(Number(e.target.value))}
+                className="rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-bold text-slate-700 shadow-xs transition hover:border-slate-300 focus:border-red-600 focus:outline-none"
+              >
+                <option value={10}>10</option>
+                <option value={20}>20</option>
+                <option value={50}>50</option>
+              </select>
+            </div>
           </div>
         </div>
 
-        {/* Counter summary */}
+        {/* Quick Year Badges (Top 6 most recent) */}
+        <div className="mt-4 flex flex-wrap items-center gap-1.5 overflow-x-auto pb-1">
+          <button
+            type="button"
+            onClick={() => setSelectedYear('ALL')}
+            className={`rounded-full px-3 py-1 text-xs font-bold transition ${
+              selectedYear === 'ALL'
+                ? 'bg-red-700 text-white shadow-xs'
+                : 'border border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-50'
+            }`}
+          >
+            {t.publications.allYears}
+          </button>
+          {availableYears.slice(0, 6).map((year) => (
+            <button
+              key={year}
+              type="button"
+              onClick={() => setSelectedYear(year)}
+              className={`rounded-full px-3 py-1 text-xs font-bold transition ${
+                selectedYear === year
+                  ? 'bg-red-700 text-white shadow-xs'
+                  : 'border border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-50'
+              }`}
+            >
+              {year} <span className="ml-1 opacity-70 text-[10px]">({yearCounts[year]})</span>
+            </button>
+          ))}
+        </div>
+
+        {/* Results Counter summary */}
         <div className="mt-3 flex items-center justify-between text-xs font-medium text-slate-500">
           <span>
-            Showing <strong className="text-slate-800">{displayedPublications.length}</strong> of{' '}
-            <strong className="text-slate-800">{filteredPublications.length}</strong> publications
-            {selectedYear !== 'ALL' && ` in ${selectedYear}`}
-            {searchQuery && ` matching "${searchQuery}"`}
+            {t.publications.showing} <strong className="text-slate-800">{filteredAndSortedPublications.length > 0 ? `${startIndex}–${endIndex}` : 0}</strong> {t.publications.of}{' '}
+            <strong className="text-slate-800">{filteredAndSortedPublications.length}</strong> {t.publications.title.toLowerCase()}
+            {selectedYear !== 'ALL' && ` (${selectedYear})`}
+            {searchQuery && ` "${searchQuery}"`}
           </span>
-          {(searchQuery || selectedYear !== 'ALL') && (
+          {(searchQuery || selectedYear !== 'ALL' || sortBy !== 'newest') && (
             <button
               type="button"
               onClick={() => {
                 setSearchQuery('');
                 setSelectedYear('ALL');
-                setVisibleCount(8);
+                setSortBy('newest');
               }}
               className="text-xs font-semibold text-red-700 hover:underline"
             >
-              Clear filters
+              {t.publications.clearFilters}
             </button>
           )}
         </div>
       </div>
 
-      {/* Publications List - Strictly Vertical (Alt Alta) */}
+      {/* Publications List */}
       <div className="mt-8 space-y-6">
-        {displayedPublications.length === 0 ? (
+        {paginatedPublications.length === 0 ? (
           <div className="rounded-3xl border border-dashed border-slate-300 bg-white p-12 text-center">
-            <p className="text-lg font-bold text-slate-700">No publications found</p>
-            <p className="mt-1 text-sm text-slate-500">Try adjusting your search terms or year filter.</p>
+            <p className="text-lg font-bold text-slate-700">{t.publications.noResults}</p>
+            <p className="mt-1 text-sm text-slate-500">{t.publications.noResultsSub}</p>
             <button
               type="button"
               onClick={() => {
                 setSearchQuery('');
                 setSelectedYear('ALL');
+                setSortBy('newest');
               }}
               className="mt-4 inline-flex items-center rounded-full bg-red-700 px-4 py-2 text-xs font-semibold text-white hover:bg-red-600"
             >
-              Reset Filters
+              {t.publications.resetFilters}
             </button>
           </div>
         ) : (
-          displayedPublications.map((pub, index) => {
+          paginatedPublications.map((pub, index) => {
             const isAbstractExpanded = !!expandedAbstracts[pub.id];
             const hasFigures = pub.figures && pub.figures.length > 0;
             const hasTables = pub.tables && pub.tables.length > 0;
@@ -243,314 +355,156 @@ export default function PublicationsSection() {
             return (
               <article
                 key={pub.id || index}
-                className="group relative rounded-2xl sm:rounded-3xl border border-slate-200 bg-white p-3.5 sm:p-6 lg:p-7 shadow-sm transition hover:border-slate-300 hover:shadow-md min-w-0 max-w-full overflow-hidden"
+                className="group relative rounded-2xl sm:rounded-3xl border border-slate-200 bg-white p-4 sm:p-6 lg:p-7 shadow-xs transition hover:border-slate-300 hover:shadow-md min-w-0 max-w-full overflow-hidden"
               >
                 {/* Meta info tags */}
                 <div className="flex flex-wrap items-center gap-2">
                   {pub.year && (
-                    <span className="inline-flex items-center rounded-full bg-red-50 px-2.5 sm:px-3 py-1 text-xs font-bold text-red-800">
+                    <span className="rounded-full bg-red-50 px-2.5 py-0.5 text-xs font-bold text-red-700 border border-red-100">
                       {pub.year}
                     </span>
                   )}
                   {pub.isOpenAccess && (
-                    <span className="inline-flex items-center rounded-full bg-emerald-50 px-2.5 sm:px-3 py-1 text-xs font-bold text-emerald-800">
-                      Open Access
+                    <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2.5 py-0.5 text-[11px] font-semibold text-emerald-700 border border-emerald-100">
+                      <svg className="h-3 w-3" fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                          fillRule="evenodd"
+                          d="M10 2a5 5 0 00-5 5v2a2 2 0 00-2 2v5a2 2 0 002 2h10a2 2 0 002-2v-5a2 2 0 00-2-2H7V7a3 3 0 015.905-.75 1 1 0 001.937-.5A5.002 5.002 0 0010 2z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                      {t.publications.openAccess}
                     </span>
                   )}
-                  {pub.journal ? (
-                    <span className="text-xs font-semibold text-slate-700 inline-flex flex-wrap items-center gap-1.5">
-                      <span>{pub.journal}</span>
-                      <span className="text-[11px] font-normal text-slate-400">
-                        (SCI-Indexed)
-                      </span>
-                    </span>
-                  ) : pub.doi?.startsWith('10.1101') ? (
-                    <span className="text-xs font-semibold text-slate-700 inline-flex flex-wrap items-center gap-1.5">
-                      <span>bioRxiv</span>
-                      <span className="text-[11px] font-normal text-slate-400">
-                        (Preprint)
-                      </span>
-                    </span>
-                  ) : pub.doi?.startsWith('10.21203') ? (
-                    <span className="text-xs font-semibold text-slate-700 inline-flex flex-wrap items-center gap-1.5">
-                      <span>Research Square</span>
-                      <span className="text-[11px] font-normal text-slate-400">
-                        (Preprint)
-                      </span>
-                    </span>
-                  ) : (
-                    <span className="text-[11px] font-normal text-slate-400">
-                      (SCI-Indexed)
+                  {hasFigures && (
+                    <span className="rounded-full bg-sky-50 px-2.5 py-0.5 text-[11px] font-semibold text-sky-700 border border-sky-100">
+                      {pub.figures.length} {lang === 'tr' ? 'Şekil' : 'Figures'}
                     </span>
                   )}
-                  {pub.doi ? (
-                    <a
-                      href={pub.doiUrl || `https://doi.org/${pub.doi}`}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="ml-auto text-xs font-medium text-slate-500 hover:text-red-700 transition inline-flex items-center gap-1 shrink-0 max-w-full"
-                      title={`Digital Object Identifier: ${pub.doi}`}
-                    >
-                      <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400">DOI:</span>
-                      <span className="font-mono text-slate-600 hover:underline truncate max-w-[190px] sm:max-w-none">{pub.doi}</span>
-                    </a>
-                  ) : pub.pmid ? (
-                    <a
-                      href={pub.pubmedUrl || `https://pubmed.ncbi.nlm.nih.gov/${pub.pmid}/`}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="ml-auto text-xs font-medium text-slate-500 hover:text-red-700 transition inline-flex items-center gap-1 shrink-0 max-w-full"
-                      title={`PubMed ID: ${pub.pmid}`}
-                    >
-                      <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400">PMID:</span>
-                      <span className="font-mono text-slate-600 hover:underline">{pub.pmid}</span>
-                    </a>
-                  ) : null}
+                  {hasTables && (
+                    <span className="rounded-full bg-amber-50 px-2.5 py-0.5 text-[11px] font-semibold text-amber-800 border border-amber-100">
+                      {pub.tables.length} {lang === 'tr' ? 'Tablo' : 'Tables'}
+                    </span>
+                  )}
                 </div>
 
-                {/* Title */}
-                <h3 className="mt-3 text-lg sm:text-xl lg:text-2xl font-bold leading-snug text-slate-900 transition group-hover:text-red-900">
-                  <a
-                    href={pub.pubmedUrl || pub.doiUrl || '#'}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="hover:underline"
-                  >
-                    {pub.title}
-                  </a>
+                {/* Article Title */}
+                <h3 className="mt-3 text-base sm:text-lg lg:text-xl font-black text-slate-900 group-hover:text-red-900 transition leading-snug">
+                  {pub.doiUrl ? (
+                    <a href={pub.doiUrl} target="_blank" rel="noreferrer" className="hover:underline">
+                      {pub.title}
+                    </a>
+                  ) : (
+                    pub.title
+                  )}
                 </h3>
 
                 {/* Authors */}
-                {pub.authors && (
-                  <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                    {formatAuthors(pub.authors)}
-                  </p>
-                )}
+                <p className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed">
+                  {formatAuthors(pub.authors)}
+                </p>
 
-                {/* Abstract Section (Collapsible) */}
+                {/* Journal & Identifiers */}
+                <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-500 font-medium">
+                  {pub.journal && (
+                    <span className="font-semibold text-slate-800 italic">
+                      {pub.journal}
+                    </span>
+                  )}
+                  {pub.pmid && <span>PMID: <strong className="text-slate-700">{pub.pmid}</strong></span>}
+                  {pub.doi && <span>DOI: <strong className="text-slate-700">{pub.doi}</strong></span>}
+                </div>
+
+                {/* Abstract Section */}
                 {pub.abstract && (
-                  <div className="mt-4 rounded-2xl bg-slate-50 p-4 text-slate-700">
-                    <p className={`text-sm leading-relaxed ${isAbstractExpanded ? '' : 'line-clamp-3'}`}>
-                      {pub.abstract}
-                    </p>
-                    {pub.abstract.length > 220 && (
-                      <button
-                        type="button"
-                        onClick={() => toggleAbstract(pub.id)}
-                        className="mt-2 text-xs font-bold text-red-700 transition hover:text-red-900"
+                  <div className="mt-4 border-t border-slate-100 pt-3">
+                    <button
+                      type="button"
+                      onClick={() => toggleAbstract(pub.id)}
+                      className="inline-flex items-center gap-1 text-xs font-bold text-red-700 hover:text-red-800 transition"
+                    >
+                      <span>{isAbstractExpanded ? t.publications.hideAbstract : t.publications.showAbstract}</span>
+                      <svg
+                        className={`h-3.5 w-3.5 transition-transform duration-200 ${
+                          isAbstractExpanded ? 'rotate-180' : ''
+                        }`}
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
                       >
-                        {isAbstractExpanded ? '▲ Show Less' : '▼ Read Full Abstract'}
-                      </button>
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </button>
+
+                    {isAbstractExpanded && (
+                      <p className="mt-2 text-xs sm:text-sm leading-relaxed text-slate-600 bg-slate-50/80 p-3.5 rounded-xl border border-slate-100 animate-fadeIn">
+                        {pub.abstract}
+                      </p>
                     )}
                   </div>
                 )}
 
-                {/* Media Section: Figures & Tables from the article */}
-                {(hasFigures || hasTables) && (() => {
-                  const isRealFigure = pub.figures[0]?.url && (pub.figures[0].url.endsWith('.jpg') || pub.figures[0].url.endsWith('.png'));
-                  const isRealTable = !!pub.tables[0]?.pmcid;
-
-                  return (
-                  <div className="mt-5 rounded-xl sm:rounded-2xl border border-slate-200/80 bg-slate-50/50 p-3 sm:p-4 min-w-0 w-full max-w-full overflow-hidden">
-                    <div className="mb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 sm:gap-2 min-w-0">
-                      <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 min-w-0">
-                        <span className="text-xs font-bold uppercase tracking-wider text-slate-700">
-                          {isRealFigure ? 'In-Article Figure & Experimental Table' : 'Publication Preview & Indexing'}
-                        </span>
-                        {isRealFigure && (
-                          <span className="shrink-0 rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-bold text-emerald-800">
-                            ✓ Original Figure
+                {/* Figures Gallery */}
+                {hasFigures && (
+                  <div className="mt-4 border-t border-slate-100 pt-3">
+                    <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2">
+                      {lang === 'tr' ? 'Makale Şekilleri & Görseller' : 'Article Figures & Visuals'}
+                    </p>
+                    <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-2">
+                      {pub.figures.map((fig, fIdx) => (
+                        <button
+                          key={fIdx}
+                          type="button"
+                          onClick={() => setModalFigure({ url: fig.url || '', caption: fig.caption, title: pub.title })}
+                          className="group/fig relative aspect-square overflow-hidden rounded-xl border border-slate-200 bg-slate-50 hover:border-red-400 hover:shadow-xs transition"
+                        >
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src={fig.url}
+                            alt={fig.label || `Figure ${fIdx + 1}`}
+                            loading="lazy"
+                            className="h-full w-full object-cover transition duration-300 group-hover/fig:scale-105"
+                          />
+                          <span className="absolute bottom-0 inset-x-0 bg-black/60 px-1 py-0.5 text-[10px] font-semibold text-white text-center truncate">
+                            {fig.label || `Fig ${fIdx + 1}`}
                           </span>
-                        )}
-                      </div>
-                      {pub.pmcUrl ? (
-                        <a
-                          href={pub.pmcUrl}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="text-xs font-semibold text-red-700 hover:underline shrink-0 self-start sm:self-auto"
-                        >
-                          View on PubMed Central →
-                        </a>
-                      ) : pub.doiUrl ? (
-                        <a
-                          href={pub.doiUrl}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="text-xs font-semibold text-red-700 hover:underline shrink-0 self-start sm:self-auto"
-                        >
-                          View Publisher Full-Text →
-                        </a>
-                      ) : null}
-                    </div>
-
-                    <div className="grid gap-4 sm:gap-5 lg:grid-cols-2 min-w-0 w-full max-w-full">
-                      {/* Figure item */}
-                      {hasFigures && pub.figures[0]?.url && (
-                        <div
-                          onClick={() =>
-                            setModalFigure({
-                              url: pub.figures[0].url!,
-                              caption: pub.figures[0].caption,
-                              title: pub.title,
-                            })
-                          }
-                          className="group/fig relative flex flex-col justify-between cursor-pointer overflow-hidden rounded-xl sm:rounded-2xl border border-slate-200 bg-white p-2.5 sm:p-3 shadow-xs transition hover:border-red-200 hover:shadow-md min-w-0 w-full max-w-full"
-                        >
-                          <div className="relative aspect-video w-full overflow-hidden rounded-lg sm:rounded-xl bg-slate-50 border border-slate-200/60 flex items-center justify-center min-w-0">
-                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img
-                              src={pub.figures[0].url}
-                              alt={pub.figures[0].label || 'Article Figure'}
-                              loading="lazy"
-                              className="h-full w-full object-contain transition duration-300 group-hover/fig:scale-105"
-                            />
-                            <div className="absolute inset-0 flex items-center justify-center bg-slate-950/25 opacity-0 transition group-hover/fig:opacity-100 backdrop-blur-[1px]">
-                              <span className="rounded-full bg-white/95 px-3 py-1 text-xs font-bold text-slate-900 shadow-md">
-                                🔍 Click to Enlarge
-                              </span>
-                            </div>
-                          </div>
-                          <div className="mt-2.5 sm:mt-3 min-w-0">
-                            <div className="flex items-center justify-between gap-2">
-                              <p className="text-xs font-bold text-slate-900 truncate">
-                                {pub.figures[0].label || (isRealFigure ? 'Figure 1' : 'Article Preview')}
-                              </p>
-                              {isRealFigure && (
-                                <span className="text-[10px] font-semibold text-emerald-700 shrink-0">
-                                  Full Resolution
-                                </span>
-                              )}
-                            </div>
-                            {pub.figures[0].caption && (
-                              <p className="mt-1 line-clamp-2 text-[11px] leading-relaxed text-slate-500 wrap-break-word">
-                                {pub.figures[0].caption}
-                              </p>
-                            )}
-                          </div>
-                        </div>
-                      )}
-
-                      {/* Table item */}
-                      {hasTables && (
-                        <div className="flex flex-col justify-between rounded-xl sm:rounded-2xl border border-slate-200 bg-white p-3 sm:p-4 shadow-xs min-w-0 w-full max-w-full overflow-hidden">
-                          <div className="min-w-0 w-full">
-                            <div className="flex items-center justify-between gap-2 mb-2 min-w-0">
-                              <div className="flex items-center gap-1.5 sm:gap-2 text-red-700 min-w-0">
-                                <svg className="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                </svg>
-                                <span className="text-xs font-bold uppercase tracking-wider text-slate-900 truncate">
-                                  {pub.tables[0].label || (isRealTable ? 'Table 1' : 'Publication Overview')}
-                                </span>
-                              </div>
-                              {isRealTable ? (
-                                <span className="shrink-0 rounded-full bg-blue-50 px-2 py-0.5 text-[10px] font-bold text-blue-700">
-                                  Experimental Table
-                                </span>
-                              ) : (
-                                <span className="shrink-0 text-[10px] text-slate-400">
-                                  Overview Table
-                                </span>
-                              )}
-                            </div>
-                            {pub.tables[0].caption && (
-                              <p className="mb-2 line-clamp-2 text-xs font-medium text-slate-600 wrap-break-word">
-                                {pub.tables[0].caption}
-                              </p>
-                            )}
-
-                            {/* Mobile horizontal scroll hint */}
-                            <div className="mb-1.5 flex items-center justify-end sm:hidden">
-                              <span className="inline-flex items-center gap-1 text-[10px] font-medium text-slate-400">
-                                <svg className="h-2.5 w-2.5 animate-pulse text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
-                                </svg>
-                                Scrollable table
-                              </span>
-                            </div>
-
-                            {pub.tables[0].headers && pub.tables[0].headers.length > 0 && (
-                              <div className="w-full max-w-full min-w-0 overflow-x-auto rounded-lg sm:rounded-xl border border-slate-200 max-h-52 overflow-y-auto overscroll-contain">
-                                <table className="min-w-full divide-y divide-slate-200 text-left text-[11px]">
-                                  <thead className="bg-slate-100 sticky top-0 font-bold text-slate-800">
-                                    <tr>
-                                      {pub.tables[0].headers.map((h, i) => (
-                                        <th key={i} className="px-2.5 sm:px-3 py-1.5 sm:py-2 whitespace-nowrap bg-slate-100 text-[10px] sm:text-[11px] font-bold text-slate-800">
-                                          {h}
-                                        </th>
-                                      ))}
-                                    </tr>
-                                  </thead>
-                                  <tbody className="divide-y divide-slate-100 text-slate-700">
-                                    {pub.tables[0].rows?.map((row, rIdx) => (
-                                      <tr key={rIdx} className={rIdx % 2 === 0 ? 'bg-white' : 'bg-slate-50/60'}>
-                                        {row.map((cell, cIdx) => (
-                                          <td key={cIdx} className="px-2.5 sm:px-3 py-1.5 sm:py-2 text-[10px] sm:text-[11px] text-slate-700 whitespace-nowrap">
-                                            {cell}
-                                          </td>
-                                        ))}
-                                      </tr>
-                                    ))}
-                                  </tbody>
-                                </table>
-                              </div>
-                            )}
-                          </div>
-
-                          {pub.pmcUrl && (
-                            <a
-                              href={pub.pmcUrl}
-                              target="_blank"
-                              rel="noreferrer"
-                              className="mt-3 inline-flex items-center text-xs font-bold text-red-700 hover:text-red-900 self-start"
-                            >
-                              View Full Table in PMC →
-                            </a>
-                          )}
-                        </div>
-                      )}
+                        </button>
+                      ))}
                     </div>
                   </div>
-                  );
-                })()}
+                )}
 
-                {/* External links and actions */}
-                <div className="mt-5 flex flex-wrap items-center gap-3 pt-3 border-t border-slate-100">
-                  {pub.pubmedUrl && (
-                    <a
-                      href={pub.pubmedUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex items-center gap-1.5 rounded-full bg-slate-900 px-4 py-2 text-xs font-semibold text-white transition hover:bg-slate-800"
-                    >
-                      <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                      </svg>
-                      View on PubMed
-                    </a>
-                  )}
-
+                {/* Direct Action Links */}
+                <div className="mt-5 flex flex-wrap items-center gap-2 border-t border-slate-100 pt-3">
                   {pub.doiUrl && (
                     <a
                       href={pub.doiUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex items-center gap-1.5 rounded-full border border-slate-300 bg-white px-4 py-2 text-xs font-semibold text-slate-700 transition hover:border-red-200 hover:text-red-700"
+                      className="inline-flex items-center gap-1.5 rounded-full bg-red-700 px-4 py-2 text-xs font-semibold text-white shadow-2xs transition hover:bg-red-600"
                     >
-                      <span>DOI Link</span>
+                      <span>DOI / Journal</span>
                       <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                       </svg>
                     </a>
                   )}
-
+                  {pub.pubmedUrl && (
+                    <a
+                      href={pub.pubmedUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-xs font-semibold text-slate-700 transition hover:border-slate-300 hover:bg-white hover:text-slate-900"
+                    >
+                      PubMed
+                    </a>
+                  )}
                   {pub.pmcUrl && (
                     <a
                       href={pub.pmcUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-xs font-semibold text-slate-600 transition hover:border-slate-300 hover:text-slate-900"
+                      className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-xs font-semibold text-slate-700 transition hover:border-slate-300 hover:bg-white hover:text-slate-900"
                     >
                       PMC Full Text
                     </a>
@@ -562,35 +516,77 @@ export default function PublicationsSection() {
         )}
       </div>
 
-      {/* "Load More" Button */}
-      {visibleCount < filteredPublications.length && (
-        <div className="mt-10 flex flex-col items-center justify-center gap-2">
-          <button
-            type="button"
-            onClick={handleLoadMore}
-            className="inline-flex items-center gap-2 rounded-full bg-red-700 px-8 py-3.5 text-sm font-bold text-white shadow-lg shadow-red-950/20 transition hover:bg-red-600 active:scale-98"
-          >
-            <span>Load More Publications (+8)</span>
-            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            </svg>
-          </button>
-          <span className="text-xs text-slate-500 font-medium">
-            {displayedPublications.length} of {filteredPublications.length} publications shown
-          </span>
-        </div>
-      )}
+      {/* Numbered Pagination Controls */}
+      {totalPages > 1 && (
+        <nav aria-label="Publications pagination" className="mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-slate-200 pt-6">
+          <div className="text-xs font-medium text-slate-500">
+            {t.publications.page} <strong className="text-slate-800">{currentPage}</strong> / <strong className="text-slate-800">{totalPages}</strong> ({filteredAndSortedPublications.length} {lang === 'tr' ? 'yayın' : 'items'})
+          </div>
 
-      {visibleCount >= filteredPublications.length && filteredPublications.length > 0 && (
-        <div className="mt-10 text-center text-xs font-semibold text-slate-400">
-          ✓ All {filteredPublications.length} publications loaded
-        </div>
+          <div className="flex items-center gap-1">
+            {/* Previous Page Button */}
+            <button
+              type="button"
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+              className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-white px-3.5 py-2 text-xs font-semibold text-slate-700 shadow-2xs transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40"
+              aria-label="Previous page"
+            >
+              <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+              <span>{t.publications.prev}</span>
+            </button>
+
+            {/* Page Number Buttons */}
+            {getPageNumbers().map((p, idx) => {
+              if (p === '...') {
+                return (
+                  <span key={`ellipsis-${idx}`} className="px-2 py-1 text-xs text-slate-400">
+                    ...
+                  </span>
+                );
+              }
+              const pageNum = p as number;
+              const isActive = pageNum === currentPage;
+              return (
+                <button
+                  key={pageNum}
+                  type="button"
+                  onClick={() => handlePageChange(pageNum)}
+                  className={`h-8 w-8 rounded-full text-xs font-bold transition ${
+                    isActive
+                      ? 'bg-red-700 text-white shadow-xs'
+                      : 'border border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50'
+                  }`}
+                  aria-current={isActive ? 'page' : undefined}
+                >
+                  {pageNum}
+                </button>
+              );
+            })}
+
+            {/* Next Page Button */}
+            <button
+              type="button"
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+              className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-white px-3.5 py-2 text-xs font-semibold text-slate-700 shadow-2xs transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40"
+              aria-label="Next page"
+            >
+              <span>{t.publications.next}</span>
+              <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+        </nav>
       )}
 
       {/* Modal / Lightbox for viewing high-res figures */}
       {modalFigure && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-2.5 sm:p-4 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-2.5 sm:p-4 backdrop-blur-xs"
           onClick={() => setModalFigure(null)}
         >
           <div
@@ -600,7 +596,7 @@ export default function PublicationsSection() {
             <div className="flex items-start justify-between gap-3 border-b border-slate-200 pb-3 min-w-0">
               <div className="min-w-0 flex-1">
                 <h4 className="text-sm sm:text-base font-bold text-slate-900 line-clamp-1">{modalFigure.title}</h4>
-                <p className="text-xs text-slate-500">Figure Full Resolution</p>
+                <p className="text-xs text-slate-500">{t.publications.fullResolution}</p>
               </div>
               <button
                 type="button"
