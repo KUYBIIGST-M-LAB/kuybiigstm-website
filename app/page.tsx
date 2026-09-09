@@ -226,7 +226,7 @@ export default function KuybimPage() {
               href="#team"
               className="rounded-full border border-slate-300 bg-white/95 px-4 py-2 text-xs font-semibold text-slate-800 shadow-xs transition hover:border-red-300 hover:bg-red-50 hover:text-red-700 active:scale-95"
             >
-              Team
+              Our Team
             </a>
           </div>
         </CloudHeroCard>
@@ -245,8 +245,9 @@ export default function KuybimPage() {
             <div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-950">
               <iframe
                 className="aspect-video w-full"
-                src="https://www.youtube.com/embed/t7jUZwhZdd0"
+                src="https://www.youtube-nocookie.com/embed/t7jUZwhZdd0"
                 title="Featured research video 1"
+                loading="lazy"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 referrerPolicy="strict-origin-when-cross-origin"
                 allowFullScreen
@@ -256,8 +257,9 @@ export default function KuybimPage() {
             <div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-950">
               <iframe
                 className="aspect-video w-full"
-                src="https://www.youtube.com/embed/RG-PYmeq2XE"
+                src="https://www.youtube-nocookie.com/embed/RG-PYmeq2XE"
                 title="Featured research video 2"
+                loading="lazy"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 referrerPolicy="strict-origin-when-cross-origin"
                 allowFullScreen
@@ -271,7 +273,7 @@ export default function KuybimPage() {
 
       <section id="team" className="mt-12 sm:mt-16 scroll-mt-24 px-4 sm:px-6 lg:px-8">
         <div className="mb-6 border-b border-slate-200 pb-4">
-          <p lang="en" className="text-sm font-semibold uppercase tracking-[0.2em] text-red-700">Team</p>
+          <p lang="en" className="text-sm font-semibold uppercase tracking-[0.2em] text-red-700">Our Team</p>
           <h2 className="mt-2 text-2xl sm:text-3xl font-black text-slate-900">Principal Investigator</h2>
         </div>
 
@@ -308,7 +310,7 @@ export default function KuybimPage() {
           href="/teams"
           className="inline-flex items-center rounded-full bg-red-700 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-red-950/20 transition hover:bg-red-600"
         >
-          Our Teams →
+          Our Team →
         </Link>
       </div>
 

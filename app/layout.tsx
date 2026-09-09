@@ -224,7 +224,7 @@ export default function RootLayout({
               <div className="mt-3 flex flex-col gap-2 text-sm text-slate-400">
                 <Link href="/#research" className="hover:text-white">Research</Link>
                 <Link href="/#publications" className="hover:text-white">Publications</Link>
-                <Link href="/teams" className="hover:text-white">Team</Link>
+                <Link href="/teams" className="hover:text-white">Our Team</Link>
               </div>
             </div>
           </div>

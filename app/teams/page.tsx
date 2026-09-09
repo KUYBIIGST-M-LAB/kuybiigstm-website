@@ -25,7 +25,7 @@ export default async function TeamsPage() {
         <div className="mb-6 sm:mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <p className="text-xs sm:text-sm font-semibold uppercase tracking-[0.2em] text-red-700">
-              Our Teams
+              Our Team
             </p>
             <h1 className="mt-1 sm:mt-2 text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900">
               KUYBIIGST-M Research Team
