@@ -89,7 +89,7 @@ export default function Navbar() {
             <span
               className="text-[9px] sm:text-[10px] font-semibold uppercase tracking-[0.16em] sm:tracking-[0.2em] text-red-200"
             >
-              {lang === 'tr' ? 'Yapısal Biyoloji Lab' : 'Structural Biology Lab'}
+              {t.nav.structuralBioLab}
             </span>
           </div>
         </Link>
@@ -238,10 +238,10 @@ export default function Navbar() {
                 href="mailto:vpri@ku.edu.tr"
                 className="flex items-center justify-center gap-2 rounded-xl bg-white/10 px-4 py-3 text-xs font-semibold text-red-100 transition hover:bg-white/20"
               >
-                <span>✉ Contact: vpri@ku.edu.tr</span>
+                <span>✉ {t.nav.contact}</span>
               </a>
               <p className="text-center text-[11px] text-red-300">
-                {lang === 'tr' ? 'Koç Üniversitesi • Rumelifeneri Kampüsü, İstanbul' : 'Koç University • Rumelifeneri Campus, Istanbul'}
+                {t.nav.campus}
               </p>
             </div>
           </div>

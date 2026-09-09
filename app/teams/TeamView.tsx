@@ -3,6 +3,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import Image from 'next/image';
 import { parseTeamMembers } from '@/lib/teamParser';
+import { useLanguage } from '@/lib/i18n';
 
 export interface TeamMember {
   id: string;
@@ -77,6 +78,7 @@ function MemberAvatar({
 }
 
 export default function TeamView({ members: initialMembers, sheetUrl }: TeamViewProps) {
+  const { t, lang } = useLanguage();
   const [members, setMembers] = useState<TeamMember[]>(initialMembers);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [activeMember, setActiveMember] = useState<TeamMember | null>(null);
@@ -164,10 +166,10 @@ export default function TeamView({ members: initialMembers, sheetUrl }: TeamView
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
         <div className="flex items-center gap-2">
           <span className="text-sm sm:text-base font-bold text-slate-800">
-            {sortedAndFilteredMembers.length} Members
+            {sortedAndFilteredMembers.length} {t.teams.activeMembers}
           </span>
           <span className="text-xs text-slate-400 font-medium">
-            (Alphabetical Order A–Z)
+            {t.teams.alphabetical}
           </span>
         </div>
 
@@ -175,7 +177,7 @@ export default function TeamView({ members: initialMembers, sheetUrl }: TeamView
         <div className="relative w-full sm:w-80">
           <input
             type="text"
-            placeholder="Search by name, research or keyword..."
+            placeholder={t.teams.searchPlaceholder}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full rounded-full border border-slate-200 bg-white py-2 pl-9 pr-8 text-xs sm:text-sm text-slate-800 placeholder-slate-400 shadow-2xs focus:border-red-600 focus:outline-hidden focus:ring-1 focus:ring-red-600"
@@ -203,13 +205,13 @@ export default function TeamView({ members: initialMembers, sheetUrl }: TeamView
       {sortedAndFilteredMembers.length === 0 ? (
         <div className="rounded-3xl border border-dashed border-slate-300 bg-white p-12 text-center">
           <p className="text-base font-semibold text-slate-700">
-            No team members match &ldquo;{searchQuery}&rdquo;.
+            {t.teams.noMatch} &ldquo;{searchQuery}&rdquo;.
           </p>
           <button
             onClick={() => setSearchQuery('')}
             className="mt-3 inline-flex items-center text-sm font-bold text-red-700 hover:text-red-900 cursor-pointer"
           >
-            Clear search
+            {t.teams.clearSearch}
           </button>
         </div>
       ) : (
@@ -249,7 +251,7 @@ export default function TeamView({ members: initialMembers, sheetUrl }: TeamView
                       onClick={() => setActiveMember(member)}
                       className="inline-flex items-center gap-1 text-xs font-bold text-red-700 transition hover:text-red-900 cursor-pointer"
                     >
-                      <span>Read Bio</span>
+                      <span>{t.teams.readMore}</span>
                       <svg className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                       </svg>
@@ -278,7 +280,7 @@ export default function TeamView({ members: initialMembers, sheetUrl }: TeamView
             <button
               onClick={() => setActiveMember(null)}
               className="absolute right-5 top-5 flex h-9 w-9 items-center justify-center rounded-full bg-slate-100 text-slate-500 transition hover:bg-red-50 hover:text-red-700 cursor-pointer"
-              aria-label="Close modal"
+              aria-label={t.teams.close}
             >
               ✕
             </button>
@@ -302,7 +304,7 @@ export default function TeamView({ members: initialMembers, sheetUrl }: TeamView
             {/* Biography */}
             <div className="mt-6 border-t border-slate-100 pt-6">
               <h4 className="text-xs font-bold uppercase tracking-[0.18em] text-slate-400 mb-3">
-                Biography & Research Interests
+                {lang === 'tr' ? 'Biyografi & Araştırma Alanları' : 'Biography & Research Interests'}
               </h4>
               <p className="whitespace-pre-line text-sm sm:text-base leading-relaxed text-slate-700">
                 {activeMember.bio}

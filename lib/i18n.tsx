@@ -11,6 +11,9 @@ export interface Translations {
     publications: string;
     team: string;
     collaborators: string;
+    structuralBioLab: string;
+    contact: string;
+    campus: string;
   };
   hero: {
     institutionBadge: string;
@@ -53,6 +56,10 @@ export interface Translations {
     hideAbstract: string;
     openAccess: string;
     fullResolution: string;
+    figuresLabel: string;
+    doiBtn: string;
+    pmcBtn: string;
+    itemsCount: string;
   };
   pi: {
     title: string;
@@ -64,11 +71,35 @@ export interface Translations {
     sectionLabel: string;
     title: string;
     description: string;
+    visitLab: string;
+  };
+  products: {
+    label: string;
+    title: string;
+    description: string;
+    btn: string;
   };
   footer: {
     address: string;
     quickLinks: string;
     copyright: string;
+  };
+  teams: {
+    sectionLabel: string;
+    title: string;
+    description: string;
+    backHome: string;
+    piBadge: string;
+    piSubtitle: string;
+    membersTitle: string;
+    membersSubtitle: string;
+    activeMembers: string;
+    searchPlaceholder: string;
+    alphabetical: string;
+    noMatch: string;
+    clearSearch: string;
+    readMore: string;
+    close: string;
   };
 }
 
@@ -80,13 +111,16 @@ export const translations: Record<Language, Translations> = {
       publications: 'Publications',
       team: 'Our Team',
       collaborators: 'Collaborators',
+      structuralBioLab: 'Structural Biology Lab',
+      contact: 'Contact: vpri@ku.edu.tr',
+      campus: 'Koç University • Rumelifeneri Campus, Istanbul',
     },
     hero: {
       institutionBadge: 'Koç University',
       title: 'KUYBIIGST-M',
       description:
         'The Koc University Structural Biology & Innovative Drug Development Center (KUYBIIGST-M) is the first comprehensive structural biology center in Turkey. Our goal is to unravel the 3D structures of biomacromolecules.',
-      researchBtn: 'Research',
+      researchBtn: 'Explore Research',
       teamBtn: 'Our Team',
     },
     research: {
@@ -128,6 +162,10 @@ export const translations: Record<Language, Translations> = {
       hideAbstract: 'Hide Abstract',
       openAccess: 'Open Access',
       fullResolution: 'Figure Full Resolution',
+      figuresLabel: 'Article Figures & Visuals',
+      doiBtn: 'DOI / Journal',
+      pmcBtn: 'PMC Full Text',
+      itemsCount: 'items',
     },
     pi: {
       title: 'Dr. Hasan DeMirci, PhD.',
@@ -140,11 +178,37 @@ export const translations: Record<Language, Translations> = {
       title: 'Academic and Research Partnerships',
       description:
         'Pioneering collaborations in serial femtosecond crystallography, ribosome dynamics, RNA modifications, and disease mechanics with world-leading universities and laboratories.',
+      visitLab: 'Visit Laboratory Page',
+    },
+    products: {
+      label: 'Products',
+      title: 'KUYBIIGST-M Protein Marker',
+      description:
+        'Locally developed, ready-to-use protein ladder (14–100 kDa) designed for use in research laboratories.',
+      btn: 'View Product Page',
     },
     footer: {
       address: 'Rumelifeneri Yolu, 34450 Sarıyer, Istanbul, Turkey',
       quickLinks: 'Quick Links',
-      copyright: 'Koç University KUYBIIGST-M. Custom built with TypeScript.',
+      copyright: 'Koç University KUYBIIGST-M. All rights reserved.',
+    },
+    teams: {
+      sectionLabel: 'Our Team',
+      title: 'KUYBIIGST-M Research Team',
+      description:
+        'Meet the scientists, researchers, graduate students, and interns advancing macromolecular crystallography, structural biology, and drug discovery.',
+      backHome: '← Back to Home',
+      piBadge: 'Principal Investigator',
+      piSubtitle: 'Director & Lead Researcher, KUYBIIGST-M | Koç University',
+      membersTitle: 'Lab Members & Researchers',
+      membersSubtitle: 'Explore profiles, research interests, and project involvement across our team.',
+      activeMembers: 'Active Members',
+      searchPlaceholder: 'Search by name, research, or keyword...',
+      alphabetical: '(Alphabetical Order A–Z)',
+      noMatch: 'No team members match',
+      clearSearch: 'Clear search',
+      readMore: 'Read more',
+      close: 'Close',
     },
   },
   tr: {
@@ -154,71 +218,104 @@ export const translations: Record<Language, Translations> = {
       publications: 'Yayınlar',
       team: 'Ekibimiz',
       collaborators: 'İş Birlikleri',
+      structuralBioLab: 'Yapısal Biyoloji Laboratuvarı',
+      contact: 'İletişim: vpri@ku.edu.tr',
+      campus: 'Koç Üniversitesi • Rumelifeneri Kampüsü, İstanbul',
     },
     hero: {
       institutionBadge: 'Koç Üniversitesi',
       title: 'KUYBİİGST-M',
       description:
-        'Koç Üniversitesi Yapısal Biyoloji ve Yenilikçi İlaç Geliştirme Merkezi (KUYBİİGST-M), Türkiye\'nin ilk kapsamlı yapısal biyoloji merkezidir. Amacımız biyomakromoleküllerin 3 boyutlu yapılarını aydınlatmaktır.',
-      researchBtn: 'Araştırmaları İncele',
+        'Koç Üniversitesi Yapısal Biyoloji ve Yenilikçi İlaç Geliştirme Merkezi (KUYBİİGST-M), Türkiye\'nin ilk kapsamlı yapısal biyoloji merkezidir. Temel amacımız biyomakromoleküllerin 3 boyutlu yapılarını aydınlatmaktır.',
+      researchBtn: 'Araştırmaları İnceleyin',
       teamBtn: 'Ekibimiz',
     },
     research: {
-      sectionLabel: 'Araştırma',
+      sectionLabel: 'Araştırma Alanı',
       title:
         'Ribozom Komplekslerinin Ortam Sıcaklığında Seri Femtosaniye X-Işını Kristalografisi Çalışmaları',
       summary:
-        'Kriyo X-ışını kristalografisiyle belirlenen yüksek çözünürlüklü ribozom yapıları, translasyon mekanizmasına dair önemli bilgiler sağlamıştır. Bu çalışmalar şimdiye dek radyasyon hasarını azaltmak için kriyojenik sıcaklıklarda tutulan büyük ribozom kristallerine dayanıyordu. Bizler ortam sıcaklığında sıvı süspansiyon halindeki ribozom mikrokristallerinden kırınım verisi elde etmek için X-ışını serbest elektron lazeri (XFEL) ile seri femtosaniye X-ışını kristalografisi (SFX) kullanıyoruz. Kod çözme kompleksleriyle programlanmış ve antibiyotik bileşikleri veya bunların yeni nesil türevlerine bağlı küçük 30S ribozom alt birimi mikrokristalleri yüksek çözünürlükte kırınım göstermiştir. Sonuçlarımız, ribozomlar ile antibiyotikler ve kod çözme kompleksleri gibi diğer substratlar arasındaki etkileşimlerin altında yatan yapısal mekanizmaları daha iyi anlamak için SFX kullanımının uygulanabilirliğini kanıtlamaktadır. XFEL ışın süresi sırasında rekor düzeyde düşük miktarda numune kullanarak büyük (50S) ribozom alt biriminin yapısını rekor sürede belirledik. Bu yapı, bugüne kadar herhangi bir FEL kaynağı tarafından atomik çözünürlüğe yakın (3 MDa) çözülen en büyük yapıdır. Bu sonuçların, makrolitler ve ketolitler gibi klinik olarak ilişkili antibiyotik sınıflarına bağlı büyük ribozom alt biriminin fizyolojik sıcaklıklara yakın sıcaklıklarda rutin yapısal çalışmalarını sağlayacağını ve yeni nesil antibiyotiklerin geliştirilmesine yardımcı olacağını öngörüyoruz. Genel olarak, fizyolojik sıcaklıklara yakın kırınım verisi toplama yeteneği, ribozomun ve işlevsel komplekslerinin yapısal dinamiklerine dair temel yeni bilgiler vaat etmektedir.',
+        'Kriyo X-ışını kristalografisiyle belirlenen yüksek çözünürlüklü ribozom yapıları, translasyon mekanizmasına dair önemli bilgiler sağlamıştır. Bu çalışmalar şimdiye dek radyasyon hasarını azaltmak için kriyojenik sıcaklıklarda tutulan büyük ribozom kristallerine dayanıyordu. Bizler ortam sıcaklığında sıvı süspansiyon halindeki ribozom mikrokristallerinden kırınım verisi elde etmek için X-ışını serbest elektron lazeri (XFEL) ile seri femtosaniye X-ışını kristalografisi (SFX) kullanıyoruz. Kod çözme kompleksleriyle programlanmış ve antibiyotik bileşikleri veya bunların yeni nesil türevlerine bağlı küçük 30S ribozom alt birimi mikrokristalleri yüksek çözünürlükte kırınım göstermiştir. Sonuçlarımız, ribozomlar ile antibiyotikler ve kod çözme kompleksleri gibi diğer substratlar arasındaki etkileşimlerin altında yatan yapısal mekanizmaları daha iyi anlamak için SFX kullanımının uygulanabilirliğini kanıtlamaktadır. XFEL ışın süresi sırasında rekor düzeyde düşük miktarda numune kullanarak büyük (50S) ribozom alt biriminin yapısını rekor sürede belirledik. Bu yapı, bugüne kadar herhangi bir FEL kaynağı tarafından atomik çözünürlüğe yakın (3 MDa) çözülen en büyük yapıdır. Bu sonuçların, makrolitler ve ketolitler gibi klinik olarak ilişkili antibiyotik sınıflarına bağlı büyük ribozom alt biriminin fizyolojik sıcaklıklara yakın sıcaklıklarda rutin yapısal çalışmalarını sağlayacağını ve yeni nesil antibiyotiklerin geliştirilmesine yardımcı olacağını öngörüyoruz. Genel olarak, fizyolojik sıcaklıklara yakın kırınım verisi toplama yeteneği, ribozomun ve işlevsel komplekslerinin yapısal dinamiklerine dair temel yeni bilgiler sunmaktadır.',
       video1Title:
         'Ribozom Komplekslerinin Ortam Sıcaklığında Seri Femtosaniye X-Işını Kristalografisi',
       video2Title:
         'Translasyonun Yapısal Mekanizmaları ve Dinamikleri',
     },
     publications: {
-      sectionLabel: 'Yayınlar & Araştırma Makaleleri',
+      sectionLabel: 'Yayınlar & Bilimsel Makaleler',
       title: 'Tüm Bilimsel Yayınlar',
       description:
-        'Hasan DeMirci ve KUYBİİGST-M laboratuvarı tarafından yayımlanan hakemli makalelerin, yapısal çalışmaların ve yöntemlerin kapsamlı listesi.',
+        'Dr. Hasan DeMirci ve KUYBİİGST-M araştırma ekibi tarafından yayımlanan hakemli makalelerin, yapısal biyoloji çalışmalarının ve yöntemlerin kapsamlı listesi.',
       totalArticles: 'Toplam Yayın',
-      searchPlaceholder: 'Başlık, yazar, anahtar kelime, dergi veya PMID ile ara...',
+      searchPlaceholder: 'Başlık, yazar, anahtar kelime, dergi veya PMID ile arayın...',
       allYears: 'Tüm Yıllar',
-      sortBy: 'Sırala',
-      sortNewest: 'En Yeni',
-      sortOldest: 'En Eski',
-      sortTitle: 'Başlık (A–Z)',
-      showing: 'Gösterilen',
+      sortBy: 'Sıralama',
+      sortNewest: 'En Yeniye Göre',
+      sortOldest: 'En Eskiye Göre',
+      sortTitle: 'Başlığa Göre (A–Z)',
+      showing: 'Gösterilen:',
       of: '/',
-      inYear: 'yılında',
-      matching: 'eşleşen',
-      clearFilters: 'Filtreleri temizle',
-      noResults: 'Yayın bulunamadı',
-      noResultsSub: 'Farklı bir arama terimi veya yıl filtresi deneyin.',
+      inYear: 'yılı',
+      matching: 'eşleşen:',
+      clearFilters: 'Filtreleri Temizle',
+      noResults: 'Aramanızla eşleşen yayın bulunamadı',
+      noResultsSub: 'Farklı bir arama terimi veya yıl filtresi deneyebilirsiniz.',
       resetFilters: 'Filtreleri Sıfırla',
-      perPage: 'Sayfa başı',
+      perPage: 'Sayfa başına',
       prev: 'Önceki',
       next: 'Sonraki',
       page: 'Sayfa',
       showAbstract: 'Özeti Göster',
       hideAbstract: 'Özeti Gizle',
       openAccess: 'Açık Erişim',
-      fullResolution: 'Şekil Tam Çözünürlük',
+      fullResolution: 'Yüksek Çözünürlüklü Şekil',
+      figuresLabel: 'Makale Şekilleri & Görseller',
+      doiBtn: 'DOI / Dergi',
+      pmcBtn: 'PMC Tam Metin',
+      itemsCount: 'yayın',
     },
     pi: {
-      title: 'Doç. Dr. Hasan DeMirci, PhD.',
+      title: 'Dr. Hasan DeMirci, PhD.',
       role: 'Grup Lideri & Merkez Direktörü',
       bio: '2002 yılında Boğaziçi Üniversitesi\'nde lisans derecemi tamamladım ve 2007\'de Brown Üniversitesi\'nde Moleküler Biyoloji, Hücre Biyolojisi ve Biyokimya alanında doktora derecemi aldım. Araştırmalarım, mutant prokaryotik ribozomların yapısal biyolojisi ve büyük biyomakromoleküler sistemleri fizyolojik sıcaklıklara yakın koşullarda incelemek için yöntemler geliştirmeye odaklanmaktadır.',
-      teamButton: 'Ekibimiz →',
+      teamButton: 'Tüm Ekibimiz →',
     },
     collaborators: {
-      sectionLabel: 'İş Birlikleri & Küresel Ağ',
+      sectionLabel: 'İş Birliklerimiz & Küresel Ağ',
       title: 'Akademik ve Araştırma Ortaklıkları',
       description:
-        'Dünyanın önde gelen üniversiteleri ve laboratuvarlarıyla seri femtosaniye kristalografi, ribozom dinamikleri, RNA modifikasyonları ve hastalık mekanikleri üzerine öncü iş birlikleri.',
+        'Dünyanın önde gelen üniversiteleri ve laboratuvarlarıyla seri femtosaniye kristalografi, ribozom dinamikleri, RNA modifikasyonları ve hastalık mekanizmaları üzerine öncü iş birlikleri.',
+      visitLab: 'Laboratuvar Sayfasını Ziyaret Edin',
+    },
+    products: {
+      label: 'Laboratuvar Ürünleri',
+      title: 'KUYBİİGST-M Protein Belirteci (Protein Ladder)',
+      description:
+        'Araştırma laboratuvarlarında kullanılmak üzere yerli olarak geliştirilmiş, kullanıma hazır protein belirteci (14–100 kDa).',
+      btn: 'Ürün Sayfasını İnceleyin',
     },
     footer: {
       address: 'Rumelifeneri Yolu, 34450 Sarıyer, İstanbul, Türkiye',
       quickLinks: 'Hızlı Bağlantılar',
-      copyright: 'Koç Üniversitesi KUYBİİGST-M. TypeScript ile geliştirilmiştir.',
+      copyright: 'Koç Üniversitesi KUYBİİGST-M. Tüm hakları saklıdır.',
+    },
+    teams: {
+      sectionLabel: 'Ekibimiz',
+      title: 'KUYBİİGST-M Araştırma Ekibi',
+      description:
+        'Makromoleküler kristalografi, yapısal biyoloji ve ilaç keşfi alanlarında çalışan bilim insanları, araştırmacılar, lisansüstü öğrenciler ve stajyerlerimiz.',
+      backHome: '← Ana Sayfaya Dön',
+      piBadge: 'Merkez Direktörü & Baş Araştırmacı',
+      piSubtitle: 'Direktör & Baş Araştırmacı, KUYBİİGST-M | Koç Üniversitesi',
+      membersTitle: 'Laboratuvar Üyeleri & Araştırmacılar',
+      membersSubtitle: 'Ekip üyelerimizin araştırma alanlarını, profillerini ve projelerini inceleyin.',
+      activeMembers: 'Aktif Üye',
+      searchPlaceholder: 'İsim, uzmanlık veya anahtar kelime ile arayın...',
+      alphabetical: '(Alfabetik Sıralama A–Z)',
+      noMatch: 'Aramanızla eşleşen ekip üyesi bulunamadı.',
+      clearSearch: 'Aramayı Temizle',
+      readMore: 'Devamını Oku',
+      close: 'Kapat',
     },
   },
 };

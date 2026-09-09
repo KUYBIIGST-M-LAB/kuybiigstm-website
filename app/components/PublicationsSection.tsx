@@ -307,8 +307,20 @@ export default function PublicationsSection() {
         {/* Results Counter summary */}
         <div className="mt-3 flex items-center justify-between text-xs font-medium text-slate-500">
           <span>
-            {t.publications.showing} <strong className="text-slate-800">{filteredAndSortedPublications.length > 0 ? `${startIndex}–${endIndex}` : 0}</strong> {t.publications.of}{' '}
-            <strong className="text-slate-800">{filteredAndSortedPublications.length}</strong> {t.publications.title.toLowerCase()}
+            {lang === 'tr' ? (
+              <>
+                Toplam <strong className="text-slate-800">{filteredAndSortedPublications.length}</strong> yayından{' '}
+                <strong className="text-slate-800">{filteredAndSortedPublications.length > 0 ? `${startIndex}–${endIndex}` : 0}</strong> arası gösteriliyor
+              </>
+            ) : (
+              <>
+                {t.publications.showing}{' '}
+                <strong className="text-slate-800">{filteredAndSortedPublications.length > 0 ? `${startIndex}–${endIndex}` : 0}</strong>{' '}
+                {t.publications.of}{' '}
+                <strong className="text-slate-800">{filteredAndSortedPublications.length}</strong>{' '}
+                {t.publications.title.toLowerCase()}
+              </>
+            )}
             {selectedYear !== 'ALL' && ` (${selectedYear})`}
             {searchQuery && ` "${searchQuery}"`}
           </span>
@@ -448,7 +460,7 @@ export default function PublicationsSection() {
                 {hasFigures && (
                   <div className="mt-4 border-t border-slate-100 pt-3">
                     <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2">
-                      {lang === 'tr' ? 'Makale Şekilleri & Görseller' : 'Article Figures & Visuals'}
+                      {t.publications.figuresLabel}
                     </p>
                     <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-2">
                       {pub.figures.map((fig, fIdx) => (
@@ -483,7 +495,7 @@ export default function PublicationsSection() {
                       rel="noreferrer"
                       className="inline-flex items-center gap-1.5 rounded-full bg-red-700 px-4 py-2 text-xs font-semibold text-white shadow-2xs transition hover:bg-red-600"
                     >
-                      <span>DOI / Journal</span>
+                      <span>{t.publications.doiBtn}</span>
                       <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                       </svg>
@@ -506,7 +518,7 @@ export default function PublicationsSection() {
                       rel="noreferrer"
                       className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-xs font-semibold text-slate-700 transition hover:border-slate-300 hover:bg-white hover:text-slate-900"
                     >
-                      PMC Full Text
+                      {t.publications.pmcBtn}
                     </a>
                   )}
                 </div>
@@ -520,7 +532,7 @@ export default function PublicationsSection() {
       {totalPages > 1 && (
         <nav aria-label="Publications pagination" className="mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-slate-200 pt-6">
           <div className="text-xs font-medium text-slate-500">
-            {t.publications.page} <strong className="text-slate-800">{currentPage}</strong> / <strong className="text-slate-800">{totalPages}</strong> ({filteredAndSortedPublications.length} {lang === 'tr' ? 'yayın' : 'items'})
+            {t.publications.page} <strong className="text-slate-800">{currentPage}</strong> / <strong className="text-slate-800">{totalPages}</strong> ({filteredAndSortedPublications.length} {t.publications.itemsCount})
           </div>
 
           <div className="flex items-center gap-1">

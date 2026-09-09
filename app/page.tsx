@@ -14,6 +14,7 @@ const institutionalPartners = [
   {
     name: 'Stanford University',
     sub: 'School of Medicine & SLAC',
+    subTr: 'Tıp Fakültesi & SLAC',
     logo: '/img/stanford-logo.svg',
     logoAlt: 'Stanford University Logo',
     url: 'https://med.stanford.edu/structuralbio.html',
@@ -22,6 +23,7 @@ const institutionalPartners = [
   {
     name: 'Duke University',
     sub: 'School of Medicine',
+    subTr: 'Tıp Fakültesi',
     logo: '/img/rna-institute-logo.jpg',
     logoAlt: 'Duke University School of Medicine Logo',
     url: 'https://medicine.duke.edu/profile/paul-f-agris',
@@ -30,6 +32,7 @@ const institutionalPartners = [
   {
     name: 'Koç University',
     sub: 'Research Laboratories Infrastructure',
+    subTr: 'Araştırma Laboratuvarları Altyapısı',
     logo: '/img/koc-university-logo.svg',
     logoAlt: 'Koç University Logo',
     url: 'https://research.ku.edu.tr/research-infrastructure/laboratories/',
@@ -50,6 +53,8 @@ const collaborators = [
     badgeColor: 'bg-red-50 text-red-800 border-red-200',
     description:
       'Pioneering single-molecule fluorescence and structural dynamics of translation mechanisms, ribosome kinetics, and antibiotic inhibition.',
+    descriptionTr:
+      'Translasyon mekanizmalarının, ribozom kinetiğinin ve antibiyotik inhibisyonunun tek molekül floresansı ve yapısal dinamikleri üzerine öncü araştırmalar.',
   },
   {
     name: 'Wakatsuki Laboratory',
@@ -63,6 +68,8 @@ const collaborators = [
     badgeColor: 'bg-red-50 text-red-800 border-red-200',
     description:
       'Advancing multi-scale structural biology, serial femtosecond crystallography (SFX) methods, and synchrotron/XFEL applications.',
+    descriptionTr:
+      'Çok ölçekli yapısal biyoloji, seri femtosaniye kristalografi (SFX) yöntemleri ile senkrotron ve XFEL uygulamalarında ileri düzey çalışmalar.',
   },
   {
     name: 'Levitt Laboratory',
@@ -77,6 +84,8 @@ const collaborators = [
     badgeColor: 'bg-amber-50 text-amber-900 border-amber-200',
     description:
       'Computational structural biology, multiscale modeling of complex macromolecular assemblies, protein folding, and allosteric transitions.',
+    descriptionTr:
+      'Hesaplamalı yapısal biyoloji, karmaşık makromoleküler yapıların çok ölçekli modellenmesi, protein katlanması ve allosterik geçişler.',
   },
   {
     name: 'Cheng Research Laboratory',
@@ -90,6 +99,8 @@ const collaborators = [
     badgeColor: 'bg-red-50 text-red-800 border-red-200',
     description:
       'Investigating inner ear sensory mechanisms and collaborating on developing non-ototoxic aminoglycoside antibiotics.',
+    descriptionTr:
+      'İç kulak duyusal mekanizmalarının araştırılması ve ototoksik olmayan aminoglikozit antibiyotiklerin geliştirilmesi üzerine ortak çalışmalar.',
   },
   {
     name: 'Otsuka Medicinal Chemistry Laboratory',
@@ -103,6 +114,8 @@ const collaborators = [
     badgeColor: 'bg-indigo-50 text-indigo-900 border-indigo-200',
     description:
       'Design, synthesis, and mechanistic evaluation of novel therapeutic small molecules targeting kinase and zinc finger domains.',
+    descriptionTr:
+      'Kinaz ve çinko parmağı domainlerini hedefleyen yeni terapötik küçük moleküllerin tasarımı, sentezi ve etki mekanizmalarının değerlendirilmesi.',
   },
   {
     name: 'Agris RNA Research Laboratory',
@@ -116,6 +129,8 @@ const collaborators = [
     badgeColor: 'bg-blue-50 text-blue-900 border-blue-200',
     description:
       'Investigating the functional role of RNA chemical modifications in tRNA decoding accuracy, ribosome interactions, and therapeutic targeting.',
+    descriptionTr:
+      'tRNA kod çözme doğruluğunda, ribozom etkileşimlerinde ve terapötik hedeflemede RNA kimyasal modifikasyonlarının işlevsel rolünün incelenmesi.',
   },
   {
     name: 'Neurodegeneration Research Laboratory (NDAL)',
@@ -129,6 +144,8 @@ const collaborators = [
     badgeColor: 'bg-red-50 text-red-800 border-red-200',
     description:
       'Elucidating molecular, genetic, and structural mechanisms of neurodegenerative disorders including ALS and motor neuron disease.',
+    descriptionTr:
+      'ALS ve motor nöron hastalıkları dahil nörodejeneratif bozuklukların moleküler, genetik ve yapısal mekanizmalarının aydınlatılması.',
   },
   {
     name: 'Cytoskeleton and Ciliopathy Laboratory',
@@ -143,6 +160,8 @@ const collaborators = [
     badgeColor: 'bg-emerald-50 text-emerald-900 border-emerald-200',
     description:
       'Investigating centriole, cilia, and centrosome biology to unravel the molecular etiology of developmental and ciliopathy disorders.',
+    descriptionTr:
+      'Gelişimsel ve siliyopati bozukluklarının moleküler etiyolojisini aydınlatmak amacıyla sentriyol, silya ve sentrozom biyolojisi araştırmaları.',
   },
   {
     name: 'Cell Biology and Proteomics Laboratory',
@@ -156,6 +175,8 @@ const collaborators = [
     badgeColor: 'bg-red-50 text-red-800 border-red-200',
     description:
       'Investigating spatial proteomics, mitotic division dynamics, cytoskeletal regulation, and quantitative mass spectrometry workflows.',
+    descriptionTr:
+      'Uzamsal proteomik, mitotik bölünme dinamikleri, hücre iskeleti regülasyonu ve kantitatif kütle spektrometrisi iş akışlarının incelenmesi.',
   },
   {
     name: 'Koç University Research Laboratories',
@@ -169,12 +190,14 @@ const collaborators = [
     badgeColor: 'bg-slate-50 text-slate-800 border-slate-200',
     description:
       'Comprehensive advanced instrumentation, structural characterization, imaging suites, and core facility ecosystems across Koç University.',
+    descriptionTr:
+      'Koç Üniversitesi bünyesinde yer alan ileri düzey cihaz altyapısı, yapısal karakterizasyon, görüntüleme sistemleri ve merkezi laboratuvar ekosistemi.',
   },
 ];
 
 
 export default function KuybimPage() {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
 
   return (
     <div className="px-0 py-0 overflow-x-hidden">
@@ -310,7 +333,7 @@ export default function KuybimPage() {
                   <h4 className="text-sm font-bold text-slate-900 line-clamp-1 group-hover:text-red-700 transition">{inst.name}</h4>
                   <span className="text-[10px] font-semibold text-slate-400 shrink-0">{inst.badge}</span>
                 </div>
-                <p className="text-xs text-slate-500 line-clamp-1">{inst.sub}</p>
+                <p className="text-xs text-slate-500 line-clamp-1">{lang === 'tr' && inst.subTr ? inst.subTr : inst.sub}</p>
               </div>
             </a>
           ))}
@@ -365,7 +388,7 @@ export default function KuybimPage() {
 
                 {/* Research Description */}
                 <p className="mt-3.5 text-xs leading-relaxed text-slate-600">
-                  {collab.description}
+                  {lang === 'tr' && collab.descriptionTr ? collab.descriptionTr : collab.description}
                 </p>
               </div>
 
@@ -377,7 +400,7 @@ export default function KuybimPage() {
                   rel="noreferrer"
                   className="inline-flex items-center gap-1.5 text-xs font-bold text-red-700 transition hover:text-red-900"
                 >
-                  <span>Visit Laboratory Page</span>
+                  <span>{t.collaborators.visitLab}</span>
                   <svg className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                   </svg>
@@ -391,10 +414,10 @@ export default function KuybimPage() {
       <section className="mt-12 rounded-[28px] border border-red-100 bg-red-50 p-5 shadow-sm lg:p-7 mx-4 sm:mx-6 lg:mx-8">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
           <div>
-            <p lang="en" className="text-sm font-semibold uppercase tracking-[0.2em] text-red-700">Products</p>
-            <h2 className="mt-2 text-3xl font-black text-slate-900">KUYBIIGST-M Protein Marker</h2>
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-red-700">{t.products.label}</p>
+            <h2 className="mt-2 text-3xl font-black text-slate-900">{t.products.title}</h2>
             <p className="mt-3 max-w-2xl text-base leading-7 text-slate-700">
-              Locally developed, ready-to-use protein ladder (14–100 kDa) designed for use in research laboratories.
+              {t.products.description}
             </p>
           </div>
 
@@ -404,7 +427,7 @@ export default function KuybimPage() {
             rel="noreferrer"
             className="inline-flex rounded-full bg-red-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-red-800"
           >
-            View Product Page
+            {t.products.btn}
           </a>
         </div>
       </section>
