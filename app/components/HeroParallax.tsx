@@ -111,6 +111,7 @@ export default function HeroParallax({ image, children }: Props) {
             fill
             priority
             fetchPriority="high"
+            quality={70}
             sizes="100vw"
             className="object-cover object-[center_42%] sm:object-[center_46%] md:object-[center_48%]"
           />
