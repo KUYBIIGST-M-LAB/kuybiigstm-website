@@ -1,0 +1,51 @@
+# Koç University Structural Biology & Innovative Drug Development Center (KUYBIIGST-M)
+
+> The first comprehensive structural biology center in Turkey, unraveling 3D atomic structures of biomacromolecules and pioneering room-temperature serial femtosecond crystallography.
+
+## Organization & Leadership
+- **Institution**: Koç University (Istanbul, Turkey)
+- **Center**: KUYBIIGST-M (Koç University Structural Biology & Innovative Drug Development Center)
+- **Principal Investigator / Director**: Dr. Hasan DeMirci, Ph.D.
+  - Ph.D. in Molecular Biology, Cell Biology & Biochemistry, Brown University (2007)
+  - B.Sc., Boğaziçi University (2002)
+  - Research affiliations: Koç University, Stanford PULSE Institute, SLAC National Accelerator Laboratory
+  - Google Scholar: https://scholar.google.com/citations?user=duLs4CkAAAAJ&hl=en
+- **Location**: Rumelifeneri Yolu, 34450 Sarıyer, Istanbul, Turkey
+- **Contact**: hdemirci@ku.edu.tr | vpri@ku.edu.tr | Tel: +90 212 338 10 00
+- **Official Website**: https://kuybiigstm.ku.edu.tr
+
+## Primary Research Pillars
+1. **Ambient-Temperature Serial Femtosecond X-ray Crystallography (SFX)**:
+   Diffraction data collection from ribosome microcrystals in liquid suspension at near-physiological temperatures using X-ray Free Electron Lasers (XFEL), avoiding cryogenic radiation damage.
+2. **Ribosome Structure and Antibiotic Resistance**:
+   Elucidating how 30S and 50S ribosomal complexes assemble, dynamically translate mRNA, and respond to decoding factors and therapeutic antibiotics (aminoglycosides, macrolides, ketolides) at atomic resolution.
+3. **Method Development for Challenging Biomacromolecules**:
+   Developing microfluidic sample delivery, microcrystal preparation protocols, and data reduction pipelines for large, medically relevant macromolecular complexes.
+4. **Structure-Guided Drug Discovery**:
+   Translational development of next-generation antimicrobial agents, non-ototoxic aminoglycoside derivatives, and novel bioactive molecules.
+
+## Landmark Scientific Achievements
+- Solved the **3 MDa large (50S) ribosomal subunit** at ambient temperature using record-low sample volume during XFEL beamtime — the largest macromolecular structure solved to date by any X-ray free-electron laser source to near-atomic resolution.
+- Published over **86 peer-reviewed research articles** in high-impact journals (Nature, PNAS, Nucleic Acids Research, IUCrJ, Structure, ACS Chemical Biology).
+
+## International & National Collaborations
+- **Stanford University**:
+  - Puglisi Laboratory (Prof. Joseph D. Puglisi) - Single-molecule translation dynamics.
+  - Wakatsuki Laboratory (Prof. Soichi Wakatsuki) - Multi-scale structural biology & SFX.
+  - Levitt Laboratory (Prof. Michael Levitt, 2013 Nobel Laureate in Chemistry) - Multiscale macromolecular modeling.
+  - Cheng Research Laboratory (Prof. Alan G. Cheng) - Non-ototoxic aminoglycoside protection.
+- **Duke University**:
+  - Agris RNA Research Laboratory (Prof. Paul F. Agris, The RNA Institute) - tRNA chemical modifications and decoding.
+- **Kumamoto University & Science Farm Co.** (Prof. Masami Otsuka) - Medicinal chemistry and small-molecule design.
+- **Koç University Core Labs & Research Groups**:
+  - Neurodegeneration Research Laboratory (NDAL, Prof. Dr. A. Nazlı Başak)
+  - Cytoskeleton and Ciliopathy Laboratory (Assoc. Prof. Elif Nur Fırat-Karalar, ERC Grantee)
+  - Cell Biology and Proteomics Laboratory (Prof. Dr. Nurhan Özlü)
+  - Koç University Research Laboratories Infrastructure
+
+## Key URL Endpoints
+- **Home**: https://kuybiigstm.ku.edu.tr/
+- **Research**: https://kuybiigstm.ku.edu.tr/#research
+- **Publications Archive (86 SCI Articles with Figures & Tables)**: https://kuybiigstm.ku.edu.tr/#publications
+- **Research Team & Lab Members**: https://kuybiigstm.ku.edu.tr/teams
+- **Collaborators Network**: https://kuybiigstm.ku.edu.tr/#collaborators

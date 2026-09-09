@@ -1,0 +1,192 @@
+[
+  {
+    "id": "balahun-gokcek-demirbag",
+    "name": "Balahun Gökçek Demirbağ",
+    "position": "Researcher Intern",
+    "category": "Researcher Interns",
+    "order": 5,
+    "bio": "I am Balahun Gökçek Demirbağ. I am currently studying Molecular Biology and Genetics at Koç University, having already graduated from the Nursing program. I hold a TÜBİTAK 2209-A project in KUYBIIGST-M. We essentially focus on X-ray Crystallography and structure determination. My primary goal is to serve as a bridge between the clinical world and the realm of molecular structures.",
+    "image": "/img/team/balahun-gokcek-demirbag.webp",
+    "timestamp": "03.09.2026 20:53:02"
+  },
+  {
+    "id": "berkay-cam",
+    "name": "Berkay Çam",
+    "position": "Researcher Intern",
+    "category": "Researcher Interns",
+    "order": 5,
+    "bio": "Hello, my name is Berkay Çam. I am a third-year Molecular Biology and Genetics undergraduate student at Çanakkale Onsekiz Mart University. My primary academic interests lie heavily in wet-lab experimental work, with a specific focus on biochemistry, protein purification, and structural biology. I have recently completed my research internship at Koç University KUYBIIGST-M. Building on the practical laboratory skills I gained there, my upcoming work will focus on research related to HIV-1, specifically exploring its structural dynamics and molecular mechanisms.",
+    "image": "/img/team/berkay-cam.webp",
+    "timestamp": "03.09.2026 20:40:10"
+  },
+  {
+    "id": "beyda-eren",
+    "name": "Beyda Eren",
+    "position": "PhD Student",
+    "category": "PhD Students",
+    "order": 3,
+    "bio": "I received my B.Sc. degree in Molecular Biology and Genetics from Istanbul University. My undergraduate research focused on the investigation of the effects of 3D-printed microneedles on phenylpropanoid production and was supported by the TÜBİTAK 2209-A Undergraduate Research Scholarship Program. I also participated in the Erasmus+ Student Mobility Program at Maria Curie-Skłodowska University in Poland.\n\nI am currently pursuing an Integrated Ph.D. in the Molecular Biology and Genetics Program at Koç University and I am a member of KUYBIIGST-M. My research interests include structural biology, X-ray crystallography, protein chemistry, cancer-associated proteins, and structure-based approaches to drug discovery and development.",
+    "image": "/img/team/beyda-eren.webp",
+    "timestamp": "08.09.2026 00:20:00"
+  },
+  {
+    "id": "efe-akar",
+    "name": "Efe Akar",
+    "position": "Researcher Intern",
+    "category": "Researcher Interns",
+    "order": 5,
+    "bio": "In high school, I prepared for the TÜBİTAK Science Olympiads in Chemistry, which grew into a broader interest in Molecular Biology and Genetics. I am now studying Bioengineering at Yıldız Technical University, starting my third year in the 2026-2027 academic year.\n\nIn the summer of 2025, I joined KUYBIIGST-M at Koç University as an intern, gaining hands-on experience in crystallography and research. Under the supervision of Hasan Demirci, I started a TÜBİTAK 2209-A project on the structure of the BCL-2 protein, which I am still continuing. Within this project, we aim to determine the co-crystal structure of BCL-2 with a newly developed potential inhibitor, testing whether it works as intended and paving the way for new treatments for BCL-2-related diseases.\n\nAlongside my lab work, I have also been active in team research: with my university's Genetic Diseases Project Team, We won a bronze medal at GOGEC'25 for a Synthetic Biology project on Huntington's Disease and became a finalist at TEKNOFEST'25 in the Oncology 3T category with another project on NSCLC.\n\nI have a particular interest in cancer and autoimmune diseases, especially how metabolic pathways function and how their disruption leads to disease. My structural work on BCL-2 is a natural extension of this interest and since understanding a protein's structure is often the first step toward developing a treatment for it.\n\nLooking ahead, I plan to pursue a master's and PhD in fields such as Molecular Oncology and Tumor Immunology and to work at an institution that both conducts impactful research and helps train the next generation of scientists. I hope to grow as a researcher along this path while also contributing to the success of those who grow alongside me.",
+    "image": "/img/team/efe-akar.webp",
+    "timestamp": "08.09.2026 23:58:17"
+  },
+  {
+    "id": "ela-nazli-akcesme",
+    "name": "Ela Nazlı Akçeşme",
+    "position": "High School Intern",
+    "category": "High School Interns",
+    "order": 6,
+    "bio": "Ela is a high school junior at Deutsche Schule Istanbul and is beginning her Abitur this year. She has a growing interest in molecular biology and biotechnology and spent August as a research intern in our lab, gaining firsthand experience in structural biology and scientific research. As she explores her future academic path, she is considering studying molecular biotechnology in Germany, with interests ranging from drug research to science communication. Alongside her scientific interests, she is involved in theatre, writing, and debate, reflecting her interest in bringing together science, creativity, and communication.",
+    "image": "/img/team/ela-nazli-akcesme.webp",
+    "timestamp": "08.09.2026 20:29:19"
+  },
+  {
+    "id": "ezgi-demirci",
+    "name": "Ezgi Demirci",
+    "position": "Researcher Intern",
+    "category": "Researcher Interns",
+    "order": 5,
+    "bio": "Ezgi Demirci is a senior Molecular Biology and Genetics student at Kadir Has University. Building on her wet lab background in cancer research and immunology, she focuses on bridging the gap between functional biology and molecular architecture. As part of KUYBIIGST-M at Koç University, Ezgi is passionate about combining structural biology with neuroscience and immunology to uncover the high resolution mechanisms driving complex biological systems.",
+    "image": "/img/team/ezgi-demirci.webp",
+    "timestamp": "07.09.2026 22:54:21"
+  },
+  {
+    "id": "hande-neslisah-uzun",
+    "name": "Hande Neslişah Uzun",
+    "position": "High School Intern",
+    "category": "High School Interns",
+    "order": 6,
+    "bio": "Hande Neslişah Uzun is a high school student with a strong interest in neuroscience, structural biology, and the intersection of scientific research and healthcare innovation. As part of the KUYBIIGST-M Internship Program at Koç University, she worked under the supervision of Dr. Hasan DeMirci, gaining experience in structural biology research and computational tools such as PyMOL, Coot, Phenix, and BLAST. Beyond the laboratory, Hande is an internationally recognized visual artist and the founder of RiseHer, a youth-led initiative advancing women’s rights across multiple countries. She hopes to combine neuroscience, research, and entrepreneurship to develop solutions that create meaningful change in healthcare.",
+    "image": "/img/team/hande-neslisah-uzun.webp",
+    "timestamp": "03.09.2026 21:32:35"
+  },
+  {
+    "id": "leyla-erturk",
+    "name": "Leyla Erturk",
+    "position": "High School Intern",
+    "category": "High School Interns",
+    "order": 6,
+    "bio": "Leyla is a hardworking student at St George’s British International School in Germany. She is passionate about Biology and Chemistry and has a strong interest in medicine and biomedical research. During her internship, she strengthened her interest in how scientific research can contribute to the understanding and treatment of disease.",
+    "image": "/img/team/leyla-erturk.webp",
+    "timestamp": "08.09.2026 21:08:07"
+  },
+  {
+    "id": "mehmet-yigit-senergin",
+    "name": "Mehmet Yiğit Şenergin",
+    "position": "Researcher Intern",
+    "category": "Researcher Interns",
+    "order": 5,
+    "bio": "I have been a part of KUYBİİGST-M since june of 2025 under the LLMF project. I gave online workshops to highschool candidates and conducted my own experiments while maintaining intern duties.",
+    "image": null,
+    "timestamp": "03.09.2026 21:07:48"
+  },
+  {
+    "id": "melek-asya-tekelioglu",
+    "name": "Melek Asya Tekelioğlu",
+    "position": "High School Intern",
+    "category": "High School Interns",
+    "order": 6,
+    "bio": "Melek Asya Tekelioğlu is a high school student interested in molecular biology, biotechnology, and structural biology. She is excited to be gaining research experience in the KUYBIIGST-M laboratory at Koç University, where she has been learning about protein structure and protein crystallization. She is grateful for the opportunity to explore structural biology through hands-on research.",
+    "image": "/img/team/melek-asya-tekelioglu.webp",
+    "timestamp": "07.09.2026 14:18:51"
+  },
+  {
+    "id": "mert-yedibela",
+    "name": "Mert Yedibela",
+    "position": "Researcher Intern",
+    "category": "Researcher Interns",
+    "order": 5,
+    "bio": "I am studying Molecular Biology and Genetics at Middle East Technical University. Ever since I discovered the field of drug discovery and development, I sensed that this might be the pioneer of modern molecular biology field. It has been more than one year, and still, I have same feelings about this field. The effort of understanding a chemical reaction catalyzed by an enzyme, and to understand the mechanisms to be able to develop drugs that inhibit them is something fascinating, for me. As Prof. Dr. Mustafa İnan told their students back then: \"Bilim uzun ve çetin bir yoldur çocuklar. Bilimi yarı yolda bırakmayın, olur mu çocuklar? Oppenheimer gibi hissediyorsanız, bırakın yüksek binaları başkası yapsın, büyük barajlarda başkası çalışsın.\" Let this road be tough and long, I will keep enjoying it till the end. KUYBIIGST-M ROCKS!",
+    "image": "/img/team/mert-yedibela.webp",
+    "timestamp": "07.09.2026 11:45:26"
+  },
+  {
+    "id": "muhammad-aboalazm",
+    "name": "Muhammad Aboalazm",
+    "position": "Researcher Intern",
+    "category": "Researcher Interns",
+    "order": 5,
+    "bio": "Hello, my name is Muhammad Aboalazm, and I am from Egypt. I am currently a Master’s student in Molecular and Computational Biology at the University of Bologna, Italy. I joined KUYBİİGST-M as a Research Intern from June 30 to August 31, and I am deeply grateful to have been part of the community and to have had the opportunity to learn and grow within the lab.\n\nDuring my internship, I worked on the thymidylate synthase (TYMS) project, gaining hands-on experience in protein production through expression and purification using ÄKTA systems, SDS-PAGE, and crystallization screening. I also applied computational approaches using Phenix and structural analysis tools to complement the wet-lab workflow.\n\nMy research interests lie at the intersection of molecular, structural, and computational biology, with a focus on understanding how protein structure and dynamics dictate biological function. I am particularly eager to integrate experimental and computational methods to resolve complex biological mechanisms.\n\nI am proud to be a KUYBİİGST-M member. Looking ahead, my goal is to push the boundaries of this field and contribute meaningfully as a top scientist in structural and computational biology.",
+    "image": "/img/team/muhammad-aboalazm.webp",
+    "timestamp": "08.09.2026 21:49:46"
+  },
+  {
+    "id": "nurefsan-binici",
+    "name": "Nurefşan Binici",
+    "position": "Researcher Intern",
+    "category": "Researcher Interns",
+    "order": 5,
+    "bio": "My name is Nurefşan Binici. I am an undergraduate Chemistry student at Yıldız Technical University. My primary academic interests focus on computational chemistry and structural biophysics. Driven by my interest in antibiotic resistance, I completed my summer internship at Koç University, KUYBİİGST-M where I had the opportunity to apply my theoretical knowledge in a wet-lab environment. My current work focuses on MD and synthetic biology systems.",
+    "image": "/img/team/nurefsan-binici.webp",
+    "timestamp": "08.09.2026 23:45:46"
+  },
+  {
+    "id": "recep-gok",
+    "name": "Recep Gök",
+    "position": "Researcher Intern",
+    "category": "Researcher Interns",
+    "order": 5,
+    "bio": "In middle school and high school, I studied at BILSEM (Science and Art Center) and this education sparked my interest in science. Now I have finished my first-year at Yıldız Technical University Department of Bioengineering.\n\nThis summer I did a research internship at Koç University KUYBIIGST-M, under the supervision of Hasan DeMirci and İlkin Yazıcı, as part of the KUSRP program and I am continuing it in hybrid form.\n\nI am working on the crystallographic characterization and structure determination of the ECR C7 enzyme, which comes from a soil bacterium called K. setae (in short, an unusual protein that fixes carbon faster than Rubisco). I also contributed to the MIF and SOD1 projects by producing replica crystals and I am working on their structure determination. I use Phenix and Coot for protein refinement, anomalous mapping and detailed analysis. When the data quality is good enough, I really enjoy pushing the R factor below 0.15 and minimizing the MolProbity metrics. \n\nI am interested in drug discovery through methods like GROMACS molecular dynamics simulations, GNINA docking and funneling. I also have an ongoing independent project where I characterized a cryptic pocket using BioEmu and computationally screened hundreds of thousands of CNS-suitable ligands with Pfizer MPO filters to select potential drug candidates. \n\nMy goal is to do a PhD in computational structural biology/biophysics and to continue as an academic researcher. In the future, I hope to help spread this field in my country and around the world to encourage young scientists to join it in the age of artificial intelligence.",
+    "image": "/img/team/recep-gok.webp",
+    "timestamp": "04.09.2026 16:47:22"
+  },
+  {
+    "id": "rojin-alpaslan",
+    "name": "Rojin Alpaslan",
+    "position": "Researcher Intern",
+    "category": "Researcher Interns",
+    "order": 5,
+    "bio": "My name is Rojin Alpaslan, and I am a senior Bioengineering student at Ege University. My previous research experience has centered on molecular dynamics simulations, specifically on protein-DNA binding dynamics. I am interested in structural biology and drug discovery.\nThis summer, I completed an internship at KUYBİİGST-M, which helped me build a bridge between dry lab and wet lab approaches in structural biology. I learned methods such as protein purification, crystallization.",
+    "image": "/img/team/rojin-alpaslan.webp",
+    "timestamp": "08.09.2026 23:58:53"
+  },
+  {
+    "id": "sait-eyerci",
+    "name": "Sait Eyerci",
+    "position": "Researcher Intern",
+    "category": "Researcher Interns",
+    "order": 5,
+    "bio": "Sait Eyerci is a senior undergraduate student in Molecular Biology and Genetics and currently works as a research intern in structural biology. His research focuses on the structural characterization of thermophilic lipases using X-ray crystallography. He recently completed a study on Geobacillus kaustophilus lipase (GkLip), investigating calcium-associated conformational heterogeneity and Pro367 ring puckering. He is now working with GkLip mutants and aims to extend this work toward ligand-bound structures and serial crystallography. Outside the lab, he enjoys occasional long walks by the shore, watching Tarantino films, and sprinting.",
+    "image": "/img/team/sait-eyerci.webp",
+    "timestamp": "08.09.2026 19:48:30"
+  },
+  {
+    "id": "sezai-aykan-ayganat",
+    "name": "Sezai Aykan Ayganat",
+    "position": "MSc Student",
+    "category": "MSc Students",
+    "order": 4,
+    "bio": "I completed my bachelor's degree in the Department of Molecular Biology and Genetics at Yildiz Technical University. From the very beginning, I have had a deep curiosity for virology, particularly the nature and complex structures of viruses. My journey with KUYBIIGSTM first began in 2025 during a three month internship, where I focused my research on HIV Integrase. I returned to the lab for a one month short term during the 2026 semester to further advance my research. The invaluable experiences I gained in our laboratory were the deciding factor in my choice to pursue my master's degree at KUYBIIGSTM.\n\nThe sky is the limit!",
+    "image": "/img/team/sezai-aykan-ayganat.webp",
+    "timestamp": "08.09.2026 19:52:31"
+  },
+  {
+    "id": "yakamoz-pinar",
+    "name": "Yakamoz Pınar",
+    "position": "High School Intern",
+    "category": "High School Interns",
+    "order": 6,
+    "bio": "As a high school student, I joined the lab, where I was immersed in an open and intellectually stimulating research environment. My experience focused on learning experimental techniques, exploring scientific questions, and gaining insight into the collaborative nature of research. The experience deepened my curiosity for science and strengthened my aspiration to pursue chemical engineering.",
+    "image": "/img/team/yakamoz-pinar.webp",
+    "timestamp": "08.09.2026 19:08:53"
+  },
+  {
+    "id": "yildiz-sudenur-kurtunoglu",
+    "name": "Yıldız Sudenur Kürtünoğlu",
+    "position": "MSc Student",
+    "category": "MSc Students",
+    "order": 4,
+    "bio": "I graduated with a B.Sc. in Molecular Biology and Genetics from Yıldız Technical University in 2024, including an Erasmus exchange semester at the University of Córdoba. I joined KUYBIIGST-M at Koç University as a Master’s student in 2025. My work centers on the structural characterization of protein targets involved in cancer pathways and disease regulation.",
+    "image": "/img/team/yildiz-sudenur-kurtunoglu.webp",
+    "timestamp": "08.09.2026 19:08:51"
+  }
+]
