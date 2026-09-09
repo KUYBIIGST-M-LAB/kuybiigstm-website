@@ -9,7 +9,7 @@ import YouTubeFacade from './components/YouTubeFacade';
 import { useLanguage } from '@/lib/i18n';
 
 const PublicationsSection = dynamic(() => import('./components/PublicationsSection'), {
-  ssr: true,
+  ssr: false,
   loading: () => (
     <div className="mx-4 my-12 rounded-2xl border border-slate-200 bg-white p-8 text-center text-sm font-medium text-slate-500 sm:mx-6 lg:mx-8">
       Yükleniyor...
