@@ -5,7 +5,14 @@ import { useEffect } from 'react';
 export default function IframeAutoResizer() {
   useEffect(() => {
     // Only execute if embedded inside an iframe
-    if (typeof window === 'undefined' || window.self === window.top) {
+    let inIframe = false;
+    try {
+      inIframe = typeof window !== 'undefined' && window.self !== window.top;
+    } catch {
+      inIframe = true;
+    }
+
+    if (!inIframe) {
       return;
     }
 

@@ -15,10 +15,6 @@ export default function Navbar() {
   const pathname = usePathname();
   const { lang, setLang, t } = useLanguage();
 
-  if (isEmbed) {
-    return null;
-  }
-
   const navItems = [
     { label: t.nav.home, href: '/' },
     { label: t.nav.research, href: '/#research' },
@@ -62,6 +58,10 @@ export default function Navbar() {
   if (prevPathname !== pathname) {
     setPrevPathname(pathname);
     setIsOpen(false);
+  }
+
+  if (isEmbed) {
+    return null;
   }
 
   return (
