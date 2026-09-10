@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useLanguage } from '@/lib/i18n';
+import { withBasePath } from '@/lib/paths';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -74,7 +75,7 @@ export default function Navbar() {
         >
           <div className="flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center overflow-hidden rounded-xl bg-white p-1 shadow-xs transition group-hover:scale-105">
             <Image
-              src="/img/logo.webp"
+              src={withBasePath('/img/logo.webp')}
               alt=""
               aria-hidden="true"
               width={56}

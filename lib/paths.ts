@@ -1,4 +1,8 @@
-export const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
+export const basePath =
+  process.env.NEXT_PUBLIC_BASE_PATH ||
+  (typeof window !== 'undefined' && window.location.pathname.startsWith('/kuybiigstm-website')
+    ? '/kuybiigstm-website'
+    : '');
 
 export function withBasePath(path?: string | null): string {
   if (!path) return '';
@@ -10,11 +14,18 @@ export function withBasePath(path?: string | null): string {
   ) {
     return path;
   }
-  if (!basePath) return path;
+
+  const currentBase =
+    basePath ||
+    (typeof window !== 'undefined' && window.location.pathname.startsWith('/kuybiigstm-website')
+      ? '/kuybiigstm-website'
+      : '');
+
+  if (!currentBase) return path;
 
   const normalizedPath = path.startsWith('/') ? path : `/${path}`;
-  if (normalizedPath.startsWith(basePath)) {
+  if (normalizedPath.startsWith(currentBase)) {
     return normalizedPath;
   }
-  return `${basePath}${normalizedPath}`;
+  return `${currentBase}${normalizedPath}`;
 }
