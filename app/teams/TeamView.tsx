@@ -4,6 +4,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import Image from 'next/image';
 import { parseTeamMembers } from '@/lib/teamParser';
 import { useLanguage } from '@/lib/i18n';
+import { withBasePath } from '@/lib/paths';
 
 export interface TeamMember {
   id: string;
@@ -88,7 +89,7 @@ export default function TeamView({ members: initialMembers, sheetUrl }: TeamView
   useEffect(() => {
     const fetchFreshData = async () => {
       try {
-        const res = await fetch(`/api/team?_t=${Date.now()}`, { cache: 'no-store' });
+        const res = await fetch(`${withBasePath('/api/team')}?_t=${Date.now()}`, { cache: 'no-store' });
         if (res.ok) {
           const liveMembers = await res.json();
           if (Array.isArray(liveMembers) && liveMembers.length > 0) {

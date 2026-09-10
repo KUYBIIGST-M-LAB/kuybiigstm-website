@@ -184,7 +184,7 @@ Projeyi yerel bilgisayarınızda çalıştırmak için aşağıdaki adımları i
 
 ### 1. Depoyu Klonlayın
 ```bash
-git clone https://github.com/keremuysal/kuybiigstm-website.git
+git clone https://github.com/KUYBIIGST-M-LAB/kuybiigstm-website.git
 cd kuybiigstm-website
 ```
 

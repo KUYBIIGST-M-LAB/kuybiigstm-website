@@ -7,6 +7,7 @@ import HeroParallax from './components/HeroParallax';
 import CloudHeroCard from './components/CloudHeroCard';
 import YouTubeFacade from './components/YouTubeFacade';
 import { useLanguage } from '@/lib/i18n';
+import { withBasePath } from '@/lib/paths';
 
 const PublicationsSection = dynamic(() => import('./components/PublicationsSection'), {
   ssr: false,
@@ -335,7 +336,7 @@ export default function KuybimPage() {
             >
               <div className="flex h-14 w-20 shrink-0 items-center justify-center rounded-xl bg-slate-50 border border-slate-100 p-2">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={inst.logo} alt="" aria-hidden="true" loading="lazy" className="max-h-10 max-w-full object-contain transition duration-200 group-hover:scale-105" />
+                <img src={withBasePath(inst.logo)} alt="" aria-hidden="true" loading="lazy" className="max-h-10 max-w-full object-contain transition duration-200 group-hover:scale-105" />
               </div>
               <div className="min-w-0 flex-1">
                 <div className="flex items-center justify-between gap-2">
@@ -361,7 +362,7 @@ export default function KuybimPage() {
                   <div className="flex h-12 w-28 items-center justify-start">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                      src={collab.logo}
+                      src={withBasePath(collab.logo)}
                       alt=""
                       aria-hidden="true"
                       loading="lazy"

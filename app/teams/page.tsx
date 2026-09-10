@@ -2,8 +2,6 @@ import TeamsHeader from './TeamsHeader';
 import TeamView from './TeamView';
 import { getTeamMembers, DEFAULT_SHEET_URL } from '@/lib/teamLoader';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
 
 export const metadata = {
   title: 'Our Team | KUYBIIGST-M',

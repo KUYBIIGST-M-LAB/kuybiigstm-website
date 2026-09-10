@@ -1,19 +1,12 @@
 import { NextResponse } from 'next/server';
 import { getTeamMembers } from '@/lib/teamLoader';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+export const dynamic = 'force-static';
 
 export async function GET() {
   try {
     const members = await getTeamMembers();
-    return NextResponse.json(members, {
-      headers: {
-        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
-        Pragma: 'no-cache',
-        Expires: '0',
-      },
-    });
+    return NextResponse.json(members);
   } catch (err) {
     return NextResponse.json(
       { error: 'Failed to fetch team members', details: String(err) },

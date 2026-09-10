@@ -3,6 +3,7 @@
 import React, { useState, useMemo } from 'react';
 import publicationsRaw from '../../data/publications.json';
 import { useLanguage } from '@/lib/i18n';
+import { withBasePath } from '@/lib/paths';
 
 export interface FigureItem {
   label?: string;
@@ -474,7 +475,7 @@ export default function PublicationsSection() {
                         >
                           {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img
-                            src={fig.url}
+                            src={withBasePath(fig.url)}
                             alt=""
                             aria-hidden="true"
                             loading="lazy"
@@ -628,7 +629,7 @@ export default function PublicationsSection() {
             <div className="relative mt-4 flex max-h-[60vh] sm:max-h-[65vh] items-center justify-center overflow-auto">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={modalFigure.url}
+                src={withBasePath(modalFigure.url)}
                 alt=""
                 aria-hidden="true"
                 className="max-h-[60vh] sm:max-h-[65vh] max-w-full w-auto rounded-lg object-contain"

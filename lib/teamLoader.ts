@@ -31,9 +31,7 @@ export async function getTeamMembers(): Promise<TeamMember[]> {
 
   if (sheetUrl) {
     try {
-      const res = await fetch(sheetUrl, {
-        cache: 'no-store',
-      });
+      const res = await fetch(sheetUrl);
 
       if (res.ok) {
         const csvText = await res.text();
