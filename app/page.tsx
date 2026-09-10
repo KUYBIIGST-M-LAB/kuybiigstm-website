@@ -211,7 +211,7 @@ export default function KuybimPage() {
 
   return (
     <div className="px-0 py-0 overflow-x-hidden">
-      <HeroParallax image="/img/wallpaper.webp">
+      <HeroParallax image={withBasePath('/img/wallpaper.webp')}>
         <CloudHeroCard>
           <div className="space-y-2.5 sm:space-y-3">
             <div className="inline-flex items-center gap-1.5 rounded-full bg-red-100/90 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-red-800 border border-red-200/50">
@@ -276,7 +276,7 @@ export default function KuybimPage() {
         <div className="rounded-2xl sm:rounded-[28px] border border-slate-200 bg-white p-5 sm:p-6 shadow-sm">
           <div className="flex flex-col gap-6 sm:gap-8 md:flex-row md:items-center text-center md:text-left">
             <div className="relative mx-auto h-36 w-36 shrink-0 overflow-hidden rounded-full border-4 border-slate-100 bg-slate-100 shadow-md sm:h-44 sm:w-44 md:mx-0 md:h-48 md:w-48">
-              <Image src="/img/hasan-demirci.png" alt={t.pi.title} fill className="object-cover" sizes="(max-width: 768px) 176px, 192px" />
+              <Image src={withBasePath('/img/hasan-demirci.png')} alt={t.pi.title} fill className="object-cover" sizes="(max-width: 768px) 176px, 192px" />
             </div>
 
             <div className="flex-1">

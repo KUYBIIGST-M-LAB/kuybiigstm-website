@@ -55,7 +55,7 @@ function MemberAvatar({
         }`}
       >
         <Image
-          src={image}
+          src={withBasePath(image)}
           alt=""
           aria-hidden="true"
           fill

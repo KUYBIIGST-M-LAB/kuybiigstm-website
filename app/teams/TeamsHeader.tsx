@@ -4,6 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useLanguage } from '@/lib/i18n';
+import { withBasePath } from '@/lib/paths';
 
 interface TeamsHeaderProps {
   memberCount: number;
@@ -40,7 +41,7 @@ export default function TeamsHeader({ memberCount }: TeamsHeaderProps) {
         <div className="flex flex-col gap-6 sm:gap-8 md:flex-row md:items-center text-center md:text-left">
           <div className="relative mx-auto h-36 w-36 shrink-0 overflow-hidden rounded-full border-4 border-slate-100 bg-slate-100 shadow-md sm:h-44 sm:w-44 md:mx-0 md:h-48 md:w-48">
             <Image
-              src="/img/hasan-demirci.png"
+              src={withBasePath('/img/hasan-demirci.png')}
               alt={t.pi.title}
               fill
               priority

@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { withBasePath } from '@/lib/paths';
 
 interface CloudHeroCardProps {
   children: React.ReactNode;
@@ -17,7 +18,7 @@ export default function CloudHeroCard({ children, className = '' }: CloudHeroCar
           <div
             className="absolute -inset-x-10 -top-7 -bottom-6 sm:-inset-x-14 sm:-top-10 sm:-bottom-8 lg:-inset-x-16 lg:-top-12 lg:-bottom-10 pointer-events-none select-none bg-no-repeat bg-center"
             style={{
-              backgroundImage: "url('/img/fluffy_cloud_vector.webp')",
+              backgroundImage: `url('${withBasePath('/img/fluffy_cloud_vector.webp')}')`,
               backgroundSize: 'contain',
               filter:
                 'drop-shadow(0 20px 25px rgba(15, 23, 42, 0.14)) drop-shadow(0 8px 10px rgba(15, 23, 42, 0.07)) drop-shadow(0 0 35px rgba(255, 255, 255, 0.8))',
