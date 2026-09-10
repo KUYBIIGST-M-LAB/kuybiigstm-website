@@ -196,7 +196,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className="scroll-smooth h-auto">
       <head>
         <link rel="preconnect" href="https://i.ytimg.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://i.ytimg.com" />
@@ -205,10 +205,10 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="min-h-screen bg-slate-50 text-slate-800 antialiased selection:bg-red-800 selection:text-white overflow-x-hidden">
+      <body className="min-h-screen h-auto bg-slate-50 text-slate-800 antialiased selection:bg-red-800 selection:text-white overflow-x-hidden">
         <LanguageProvider>
           <Navbar />
-          <main className="flex-1 min-w-0 max-w-full overflow-x-hidden">{children}</main>
+          <main className="flex-1 min-w-0 max-w-full h-auto overflow-x-hidden">{children}</main>
           <Footer />
         </LanguageProvider>
       </body>
