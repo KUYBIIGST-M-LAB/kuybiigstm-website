@@ -242,7 +242,7 @@ export default function KuybimPage() {
         </CloudHeroCard>
       </HeroParallax>
 
-      <section id="research" className="mt-12 sm:mt-16 scroll-mt-24 px-4 sm:px-6 lg:px-8">
+      <section id="research" className="mt-8 sm:mt-12 scroll-mt-24 px-4 sm:px-6 lg:px-8">
         <div className="border-b border-slate-200 pb-4">
           <h2 className="text-sm font-semibold uppercase tracking-[0.2em] text-red-700">{t.research.sectionLabel}</h2>
         </div>
