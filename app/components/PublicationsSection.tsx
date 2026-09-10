@@ -147,6 +147,18 @@ export default function PublicationsSection() {
     });
   };
 
+  // Helper to clean HTML entities and tags from publication titles
+  const cleanTitle = (rawTitle: string) => {
+    if (!rawTitle) return '';
+    return rawTitle
+      .replace(/&lt;\/?([a-z0-9]+)&gt;/gi, '')
+      .replace(/<\/?([a-z0-9]+)>/gi, '')
+      .replace(/&amp;/g, '&')
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, "'")
+      .trim();
+  };
+
   // Helper for generating pagination buttons list (with ellipsis)
   const getPageNumbers = () => {
     const pages: (number | string)[] = [];
@@ -406,10 +418,10 @@ export default function PublicationsSection() {
                 <h3 className="mt-3 text-base sm:text-lg lg:text-xl font-black text-slate-900 group-hover:text-red-900 transition leading-snug">
                   {pub.doiUrl ? (
                     <a href={pub.doiUrl} target="_blank" rel="noreferrer" className="hover:underline">
-                      {pub.title}
+                      {cleanTitle(pub.title)}
                     </a>
                   ) : (
-                    pub.title
+                    cleanTitle(pub.title)
                   )}
                 </h3>
 
@@ -469,7 +481,7 @@ export default function PublicationsSection() {
                         <button
                           key={fIdx}
                           type="button"
-                          onClick={() => setModalFigure({ url: fig.url || '', caption: fig.caption, title: pub.title })}
+                          onClick={() => setModalFigure({ url: fig.url || '', caption: fig.caption, title: cleanTitle(pub.title) })}
                           className="group/fig relative aspect-square overflow-hidden rounded-xl border border-slate-200 bg-slate-50 hover:border-red-400 hover:shadow-xs transition"
                           aria-label={fig.label || `Figure ${fIdx + 1}`}
                         >

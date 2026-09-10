@@ -168,7 +168,7 @@ export const translations: Record<Language, Translations> = {
       itemsCount: 'items',
     },
     pi: {
-      title: 'Dr. Hasan DeMirci, PhD.',
+      title: 'Dr. Hasan DeMirci',
       role: 'Principal Investigator',
       bio: 'I completed my B.Sc. at Bosphorus University in 2002 and later received my Ph.D. in Molecular Biology, Cell Biology and Biochemistry at Brown University in 2007. My research focuses on the structural biology of mutant prokaryotic ribosomes and on developing methods to study large biomacromolecular systems at near-physiological temperatures.',
       teamButton: 'Our Team →',
@@ -275,7 +275,7 @@ export const translations: Record<Language, Translations> = {
       itemsCount: 'yayın',
     },
     pi: {
-      title: 'Dr. Hasan DeMirci, PhD.',
+      title: 'Dr. Hasan DeMirci',
       role: 'Grup Lideri & Merkez Direktörü',
       bio: '2002 yılında Boğaziçi Üniversitesi\'nde lisans derecemi tamamladım ve 2007\'de Brown Üniversitesi\'nde Moleküler Biyoloji, Hücre Biyolojisi ve Biyokimya alanında doktora derecemi aldım. Araştırmalarım, mutant prokaryotik ribozomların yapısal biyolojisi ve büyük biyomakromoleküler sistemleri fizyolojik sıcaklıklara yakın koşullarda incelemek için yöntemler geliştirmeye odaklanmaktadır.',
       teamButton: 'Tüm Ekibimiz →',

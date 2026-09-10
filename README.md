@@ -7,7 +7,7 @@
   **Center of Excellence for Structural Biology at Koç University**
 
   <p align="center">
-    Doç. Dr. Hasan Demirci liderliğindeki KUYBİİGST-M araştırma laboratuvarının resmi web platformu; yüksek çözünürlüklü yapısal biyoloji, ribozom dinamikleri, seri femtosaniye kristalografi (SFX), kryo-EM ve ilaç keşfi araştırmalarını global bilim dünyasıyla buluşturur.
+    Dr. Hasan DeMirci liderliğindeki KUYBİİGST-M araştırma laboratuvarının resmi web platformu; yüksek çözünürlüklü yapısal biyoloji, ribozom dinamikleri, seri femtosaniye kristalografi (SFX), kryo-EM ve ilaç keşfi araştırmalarını global bilim dünyasıyla buluşturur.
   </p>
 
   <p align="center">
@@ -247,7 +247,7 @@ NEXT_PUBLIC_GOOGLE_SHEET_URL="https://docs.google.com/spreadsheets/d/e/2PACX-...
 ## 👥 Ekip ve Akademik Ortaklıklar
 
 ### Laboratuvar Yürütücüsü (Principal Investigator)
-* **Doç. Dr. Hasan Demirci**
+* **Dr. Hasan DeMirci**
   * Koç University, Department of Molecular Biology and Genetics
   * Stanford University School of Medicine & SLAC National Accelerator Laboratory
   * E-posta: [hdemirci@ku.edu.tr](mailto:hdemirci@ku.edu.tr) | Ofis: SCI Z59
