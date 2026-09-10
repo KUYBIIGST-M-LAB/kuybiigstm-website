@@ -14,34 +14,42 @@ export function EmbedProvider({ children }: { children: React.ReactNode }) {
   const { lang, setLang } = useLanguage();
 
   useEffect(() => {
-    const checkEmbed = () => {
+    try {
       if (typeof window === 'undefined') return;
 
-      const inIframe = window.self !== window.top;
-      const params = new URLSearchParams(window.location.search);
-      const hasEmbedQuery =
-        params.get('embed') === 'true' ||
-        params.get('embed') === '1' ||
-        params.get('widget') === 'true' ||
-        window.location.hash.includes('embed');
+      let inIframe = false;
+      try {
+        inIframe = window.self !== window.top;
+      } catch {
+        inIframe = true;
+      }
+
+      let hasEmbedQuery = false;
+      try {
+        const params = new URLSearchParams(window.location.search);
+        hasEmbedQuery =
+          params.get('embed') === 'true' ||
+          params.get('embed') === '1' ||
+          params.get('widget') === 'true' ||
+          window.location.hash.includes('embed');
+      } catch {
+        // ignore
+      }
 
       const active = inIframe || hasEmbedQuery;
       setIsEmbed(active);
 
       if (active) {
         document.documentElement.classList.add('is-embed');
-      } else {
-        document.documentElement.classList.remove('is-embed');
       }
-    };
-
-    checkEmbed();
+    } catch {
+      // never crash
+    }
   }, []);
 
   return (
     <EmbedContext.Provider value={{ isEmbed }}>
       {children}
-      {/* Floating subtle language toggle when embedded without full navbar */}
       {isEmbed && (
         <aside
           aria-label="Language selection"
