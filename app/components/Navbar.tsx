@@ -6,12 +6,18 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useLanguage } from '@/lib/i18n';
 import { withBasePath } from '@/lib/paths';
+import { useEmbed } from './EmbedManager';
 
 export default function Navbar() {
+  const { isEmbed } = useEmbed();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const { lang, setLang, t } = useLanguage();
+
+  if (isEmbed) {
+    return null;
+  }
 
   const navItems = [
     { label: t.nav.home, href: '/' },

@@ -3,6 +3,7 @@ import './globals.css';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import IframeAutoResizer from './components/IframeAutoResizer';
+import { EmbedProvider } from './components/EmbedManager';
 import { LanguageProvider } from '@/lib/i18n';
 
 const siteUrl = 'https://kuybiigstm.ku.edu.tr';
@@ -202,16 +203,23 @@ export default function RootLayout({
         <link rel="preconnect" href="https://i.ytimg.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://i.ytimg.com" />
         <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{if(window.self!==window.top||window.location.search.indexOf('embed=')!==-1||window.location.search.indexOf('widget=')!==-1||window.location.hash.indexOf('embed')!==-1){document.documentElement.classList.add('is-embed');}}catch(e){}})();`,
+          }}
+        />
+        <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
       <body className="h-auto min-h-full bg-slate-50 text-slate-800 antialiased selection:bg-red-800 selection:text-white overflow-visible">
         <LanguageProvider>
-          <IframeAutoResizer />
-          <Navbar />
-          <main className="flex-1 min-w-0 max-w-full h-auto overflow-visible">{children}</main>
-          <Footer />
+          <EmbedProvider>
+            <IframeAutoResizer />
+            <Navbar />
+            <main className="flex-1 min-w-0 max-w-full h-auto overflow-visible">{children}</main>
+            <Footer />
+          </EmbedProvider>
         </LanguageProvider>
       </body>
     </html>

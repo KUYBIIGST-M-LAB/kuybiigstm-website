@@ -8,6 +8,7 @@ import CloudHeroCard from './components/CloudHeroCard';
 import YouTubeFacade from './components/YouTubeFacade';
 import { useLanguage } from '@/lib/i18n';
 import { withBasePath } from '@/lib/paths';
+import { useEmbed } from './components/EmbedManager';
 
 const PublicationsSection = dynamic(() => import('./components/PublicationsSection'), {
   ssr: false,
@@ -208,6 +209,7 @@ const collaborators = [
 
 export default function KuybimPage() {
   const { t, lang } = useLanguage();
+  const { isEmbed } = useEmbed();
 
   return (
     <div className="px-0 py-0 overflow-x-hidden">
@@ -303,7 +305,7 @@ export default function KuybimPage() {
 
       <div className="mt-8 flex justify-center sm:justify-start px-4 sm:px-6 lg:px-8">
         <Link
-          href="/teams"
+          href={isEmbed ? '/teams?embed=true' : '/teams'}
           className="inline-flex items-center rounded-full bg-red-700 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-red-950/20 transition hover:bg-red-600"
         >
           {t.pi.teamButton}

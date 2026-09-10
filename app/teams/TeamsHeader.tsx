@@ -5,12 +5,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useLanguage } from '@/lib/i18n';
 import { withBasePath } from '@/lib/paths';
+import { useEmbed } from '../components/EmbedManager';
 
 interface TeamsHeaderProps {
   memberCount: number;
 }
 
 export default function TeamsHeader({ memberCount }: TeamsHeaderProps) {
+  const { isEmbed } = useEmbed();
   const { t } = useLanguage();
 
   return (
@@ -29,7 +31,7 @@ export default function TeamsHeader({ memberCount }: TeamsHeaderProps) {
           </p>
         </div>
         <Link
-          href="/"
+          href={isEmbed ? '/?embed=true' : '/'}
           className="inline-flex w-fit items-center rounded-full border border-slate-300 bg-white px-4 py-2 text-xs sm:text-sm font-semibold text-slate-700 transition hover:border-red-200 hover:text-red-700 shadow-2xs"
         >
           {t.teams.backHome}

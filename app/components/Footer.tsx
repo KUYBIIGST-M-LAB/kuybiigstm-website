@@ -3,9 +3,15 @@
 import React from 'react';
 import Link from 'next/link';
 import { useLanguage } from '@/lib/i18n';
+import { useEmbed } from './EmbedManager';
 
 export default function Footer() {
+  const { isEmbed } = useEmbed();
   const { t } = useLanguage();
+
+  if (isEmbed) {
+    return null;
+  }
 
   return (
     <footer className="mt-20 border-t border-slate-200 bg-slate-900 text-slate-300">
