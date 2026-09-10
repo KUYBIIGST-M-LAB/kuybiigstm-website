@@ -60,6 +60,10 @@ export interface Translations {
     doiBtn: string;
     pmcBtn: string;
     itemsCount: string;
+    recentTitle: string;
+    viewMore: string;
+    showLess: string;
+    exploreArchiveDesc: string;
   };
   pi: {
     title: string;
@@ -166,6 +170,11 @@ export const translations: Record<Language, Translations> = {
       doiBtn: 'DOI / Journal',
       pmcBtn: 'PMC Full Text',
       itemsCount: 'items',
+      recentTitle: 'Recent & Featured Publications',
+      viewMore: 'View More Publications',
+      showLess: 'Show Less',
+      exploreArchiveDesc:
+        'Explore all peer-reviewed articles, filter by year, search by author or keyword, and inspect high-resolution figures & data.',
     },
     pi: {
       title: 'Dr. Hasan DeMirci',
@@ -273,6 +282,11 @@ export const translations: Record<Language, Translations> = {
       doiBtn: 'DOI / Dergi',
       pmcBtn: 'PMC Tam Metin',
       itemsCount: 'yayın',
+      recentTitle: 'Son ve Öne Çıkan Yayınlar',
+      viewMore: 'Daha Fazla Yayın Gör',
+      showLess: 'Daha Az Göster',
+      exploreArchiveDesc:
+        'Tüm hakemli makaleleri inceleyin, yıla göre filtreleyin, yazar veya anahtar kelimeye göre arayın, yüksek çözünürlüklü şekil ve verilere erişin.',
     },
     pi: {
       title: 'Dr. Hasan DeMirci',
