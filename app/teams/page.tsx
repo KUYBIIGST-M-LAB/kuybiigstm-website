@@ -16,11 +16,11 @@ export default async function TeamsPage() {
     DEFAULT_SHEET_URL;
 
   return (
-    <main className="min-h-screen bg-slate-50 px-4 py-8 sm:py-12 sm:px-6 lg:px-8">
+    <section className="h-auto bg-slate-50 px-4 py-8 sm:py-12 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl">
         <TeamsHeader memberCount={members.length} />
         <TeamView members={members} sheetUrl={sheetUrl} />
       </div>
-    </main>
+    </section>
   );
 }

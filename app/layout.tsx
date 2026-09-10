@@ -206,11 +206,11 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="min-h-screen h-auto bg-slate-50 text-slate-800 antialiased selection:bg-red-800 selection:text-white overflow-x-hidden">
+      <body className="h-auto min-h-full bg-slate-50 text-slate-800 antialiased selection:bg-red-800 selection:text-white overflow-visible">
         <LanguageProvider>
           <IframeAutoResizer />
           <Navbar />
-          <main className="flex-1 min-w-0 max-w-full h-auto overflow-x-hidden">{children}</main>
+          <main className="flex-1 min-w-0 max-w-full h-auto overflow-visible">{children}</main>
           <Footer />
         </LanguageProvider>
       </body>
