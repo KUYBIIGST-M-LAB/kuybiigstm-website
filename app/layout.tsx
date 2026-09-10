@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import IframeAutoResizer from './components/IframeAutoResizer';
 import { LanguageProvider } from '@/lib/i18n';
 
 const siteUrl = 'https://kuybiigstm.ku.edu.tr';
@@ -207,6 +208,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen h-auto bg-slate-50 text-slate-800 antialiased selection:bg-red-800 selection:text-white overflow-x-hidden">
         <LanguageProvider>
+          <IframeAutoResizer />
           <Navbar />
           <main className="flex-1 min-w-0 max-w-full h-auto overflow-x-hidden">{children}</main>
           <Footer />
