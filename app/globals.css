@@ -19,6 +19,19 @@ html.is-embed footer {
   display: none !important;
 }
 
+/* Completely remove internal scrollbar in iframe embed mode */
+html.is-embed,
+html.is-embed body {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+html.is-embed::-webkit-scrollbar,
+html.is-embed body::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
 a {
   text-decoration: none;
 }
